@@ -7,13 +7,19 @@ address standardization, component parsing, and tokenization.
 Ownership: Member 1 (Preprocessing & Blocking).
 """
 
-from .normalize import normalize_business_name, extract_legal_suffixes, tokenize_name
+from .normalize import (
+    normalize_business_name,
+    extract_legal_suffixes,
+    tokenize_name,
+    tokenize_business_name,
+)
 from .address import normalize_address, extract_house_number, tokenize_address
 
 __all__ = [
     "normalize_business_name",
     "extract_legal_suffixes",
     "tokenize_name",
+    "tokenize_business_name",
     "normalize_address",
     "extract_house_number",
     "tokenize_address",

@@ -74,3 +74,20 @@ def tokenize_name(name: Optional[str], min_length: int = 2) -> List[str]:
         Implement token extraction with optional stopword filtering.
     """
     raise NotImplementedError("Name tokenization is not implemented yet.")
+
+
+def tokenize_business_name(name: Optional[str], min_length: int = 2) -> List[str]:
+    """
+    Tokenize a business name into distinctive terms (alias for tokenize_name).
+
+    Args:
+        name: Normalized business name.
+        min_length: Minimum character length for tokens.
+
+    Returns:
+        List of cleaned token strings.
+
+    TODO:
+        Implement token extraction with optional stopword filtering.
+    """
+    raise NotImplementedError("tokenize_business_name is not implemented yet.")
