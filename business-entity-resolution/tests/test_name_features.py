@@ -7,64 +7,7 @@ import pytest
 
 from src.business_entity_resolution.features.name_features import (
     compute_name_similarity_features,
-    normalize_name,
-    tokenize_name,
 )
-
-
-class TestNormalizeName:
-    def test_none_input(self):
-        assert normalize_name(None) == ""
-
-    def test_empty_string(self):
-        assert normalize_name("") == ""
-
-    def test_whitespace_only(self):
-        assert normalize_name("   ") == ""
-
-    def test_case_normalization(self):
-        assert normalize_name("Apollo Hospital") == "apollo hospital"
-        assert normalize_name("APOLLO HOSPITAL") == "apollo hospital"
-
-    def test_punctuation_handling(self):
-        assert normalize_name("Apollo Hospital, Ltd.") == "apollo hospital ltd"
-        assert normalize_name("Apollo Hospital Ltd") == "apollo hospital ltd"
-
-    def test_whitespace_normalization(self):
-        assert normalize_name("Apollo   Hospital") == "apollo hospital"
-        assert normalize_name("  Apollo Hospital  ") == "apollo hospital"
-
-    def test_ampersand_normalization(self):
-        assert normalize_name("Smith & Jones") == "smith and jones"
-
-    def test_unicode_preservation(self):
-        hindi_name = "अपोलो हॉस्पिटल"
-        assert normalize_name(hindi_name) == hindi_name
-
-    def test_mixed_script(self):
-        mixed = "Apollo हॉस्पिटल"
-        result = normalize_name(mixed)
-        assert "apollo" in result
-        assert "हॉस्पिटल" in result
-
-    def test_numbers_preserved(self):
-        assert normalize_name("Apollo 24/7 Hospital") == "apollo 24 7 hospital"
-
-
-class TestTokenizeName:
-    def test_empty_input(self):
-        assert tokenize_name("") == []
-        assert tokenize_name(None) == []
-
-    def test_basic_tokenization(self):
-        assert tokenize_name("Apollo Hospital") == ["apollo", "hospital"]
-
-    def test_unicode_tokens(self):
-        tokens = tokenize_name("अपोलो हॉस्पिटल")
-        assert tokens == ["अपोलो", "हॉस्पिटल"]
-
-    def test_punctuation_removed(self):
-        assert tokenize_name("Apollo, Hospital!") == ["apollo", "hospital"]
 
 
 class TestComputeNameSimilarityFeatures:
@@ -74,11 +17,14 @@ class TestComputeNameSimilarityFeatures:
         assert features["name_token_jaccard"] == 1.0
         assert features["name_edit_similarity"] == 1.0
         assert features["name_length_ratio"] == 1.0
+        assert features["name_char_ngram_cosine"] == 1.0
+        assert features["name_first_token_match"] == 1.0
 
     def test_punctuation_whitespace_variation(self):
         features = compute_name_similarity_features(
             "Apollo Hospital, Ltd.", "Apollo Hospital Ltd"
         )
+        # M1 normalizer handles punctuation consistently
         assert features["name_exact_match"] == 1.0
         assert features["name_token_jaccard"] == 1.0
 
@@ -88,6 +34,10 @@ class TestComputeNameSimilarityFeatures:
         features = compute_name_similarity_features(hindi1, hindi2)
         assert features["name_exact_match"] == 1.0
         assert features["name_token_jaccard"] == 1.0
+        assert features["name_char_ngram_cosine"] == 1.0
+        assert features["name_edit_similarity"] == 1.0
+        assert features["name_length_ratio"] == 1.0
+        assert features["name_first_token_match"] == 1.0
 
     def test_identical_token_sets_jaccard(self):
         features = compute_name_similarity_features("Apollo Hospital", "Hospital Apollo")
@@ -100,8 +50,12 @@ class TestComputeNameSimilarityFeatures:
         assert features["name_token_overlap_count"] == 0.0
 
     def test_partial_token_overlap(self):
-        features = compute_name_similarity_features("Apollo Hospital Delhi", "Apollo Clinic Mumbai")
-        assert features["name_token_jaccard"] == 1.0 / 4.0
+        features = compute_name_similarity_features(
+            "Apollo Hospital Delhi", "Apollo Clinic Mumbai"
+        )
+        # Tokens: apollo, hospital, delhi vs apollo, clinic, mumbai
+        # Intersection: {apollo} = 1, Union: {apollo, hospital, delhi, clinic, mumbai} = 5
+        assert features["name_token_jaccard"] == 1.0 / 5.0
         assert features["name_token_overlap_count"] == 1.0
 
     def test_edit_similarity_identical(self):
@@ -135,16 +89,22 @@ class TestComputeNameSimilarityFeatures:
     def test_both_empty(self):
         features = compute_name_similarity_features("", "")
         assert features["name_exact_match"] == 0.0
-        assert features["name_token_jaccard"] == 1.0
+        assert features["name_token_jaccard"] == 0.0  # Both empty token sets -> 0.0
         assert features["name_edit_similarity"] == 1.0
         assert features["name_length_ratio"] == 1.0
+        assert features["name_char_ngram_cosine"] == 1.0
+        assert features["name_first_token_match"] == 0.0
+        assert features["name_token_overlap_count"] == 0.0
 
     def test_none_inputs(self):
         features = compute_name_similarity_features(None, None)
         assert features["name_exact_match"] == 0.0
-        assert features["name_token_jaccard"] == 1.0
+        assert features["name_token_jaccard"] == 0.0
         assert features["name_edit_similarity"] == 1.0
         assert features["name_length_ratio"] == 1.0
+        assert features["name_char_ngram_cosine"] == 1.0
+        assert features["name_first_token_match"] == 0.0
+        assert features["name_token_overlap_count"] == 0.0
 
     def test_no_nan_inf(self):
         test_cases = [
@@ -166,8 +126,7 @@ class TestComputeNameSimilarityFeatures:
         bounded_keys = [
             "name_exact_match",
             "name_token_jaccard",
-            "name_char_2gram_similarity",
-            "name_char_3gram_similarity",
+            "name_char_ngram_cosine",
             "name_edit_similarity",
             "name_first_token_match",
             "name_length_ratio",
@@ -175,19 +134,61 @@ class TestComputeNameSimilarityFeatures:
         for key in bounded_keys:
             assert 0.0 <= features[key] <= 1.0, f"{key} out of bounds: {features[key]}"
 
-    def test_char_ngram_similarity(self):
+    def test_char_ngram_cosine(self):
         features = compute_name_similarity_features("Apollo", "Apolo")
-        assert 0.0 < features["name_char_2gram_similarity"] < 1.0
-        assert 0.0 < features["name_char_3gram_similarity"] < 1.0
+        assert 0.0 < features["name_char_ngram_cosine"] < 1.0
 
     def test_short_strings(self):
         features = compute_name_similarity_features("A", "B")
         assert features["name_edit_similarity"] == 0.0
         assert features["name_length_ratio"] == 1.0
+        assert 0.0 <= features["name_char_ngram_cosine"] <= 1.0
 
     def test_single_char_vs_multi_char(self):
         features = compute_name_similarity_features("A", "Apollo")
         assert features["name_length_ratio"] == 1.0 / 6.0
+
+    def test_indic_script_feature_computation(self):
+        """Verify Indic script names don't crash and produce valid features."""
+        hindi_name = "अपोलो हॉस्पिटल"
+        english_name = "Apollo Hospital"
+        features = compute_name_similarity_features(hindi_name, english_name)
+        # All features should be finite
+        for key, value in features.items():
+            assert not math.isnan(value), f"NaN in {key}"
+            assert not math.isinf(value), f"Inf in {key}"
+
+    def test_mixed_script_names(self):
+        """Verify mixed script names work correctly."""
+        mixed1 = "Apollo हॉस्पिटल"
+        mixed2 = "Apollo हॉस्पिटल"
+        features = compute_name_similarity_features(mixed1, mixed2)
+        assert features["name_exact_match"] == 1.0
+        assert features["name_token_jaccard"] == 1.0
+
+    def test_feature_names_exact(self):
+        """Verify exactly seven required feature names are returned."""
+        features = compute_name_similarity_features("Apollo Hospital", "Delta Clinic")
+        expected_keys = {
+            "name_token_jaccard",
+            "name_token_overlap_count",
+            "name_char_ngram_cosine",
+            "name_edit_similarity",
+            "name_length_ratio",
+            "name_exact_match",
+            "name_first_token_match",
+        }
+        assert set(features.keys()) == expected_keys
+
+    def test_legal_suffix_handling(self):
+        """Verify M1 legal suffix stripping is NOT applied by default."""
+        features = compute_name_similarity_features(
+            "Apollo Hospital Ltd", "Apollo Hospital"
+        )
+        # Without strip_legal=True, "ltd" token should remain
+        assert features["name_exact_match"] == 0.0
+        # But token overlap should capture shared tokens
+        assert features["name_token_overlap_count"] >= 2.0
 
 
 if __name__ == "__main__":
