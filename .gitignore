@@ -1,0 +1,43 @@
+# Large archive files
+*.zip
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+
+# Dataset files (>2.4 GB uncompressed raw TSV files)
+student_resource/dataset/
+*.tsv
+
+# Output directory and generated submission files
+output/
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# IDE and environment metadata
+.antigravity/
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+
+# Scratch and local helper wrappers
+powershell.cmd
+unzip_data.py
+scratch/

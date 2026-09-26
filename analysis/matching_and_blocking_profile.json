@@ -1,0 +1,74 @@
+{
+  "sample_pairs_evaluated": 91527,
+  "name_similarity_metrics": {
+    "exact_normalized_match_rate_pct": 25.35,
+    "mean_token_jaccard": 0.6964,
+    "mean_char_bigram_similarity": 0.7776,
+    "mean_length_difference": 3.85
+  },
+  "address_similarity_metrics": {
+    "missing_address_in_target_pct": 4.38,
+    "exact_normalized_match_rate_pct": 8.66,
+    "mean_token_jaccard": 0.6394,
+    "mean_char_bigram_similarity": 0.8211,
+    "mean_length_difference": 8.82
+  },
+  "pair_categories": {
+    "identical_normalized_names_pct": 25.35,
+    "similar_non_identical_names_pct": 49.06,
+    "weak_name_strong_address_pct": 11.6,
+    "both_name_and_address_noisy_pct": 1.55
+  },
+  "blocking_candidate_recall": {
+    "3_name_prefix_5_and_country": {
+      "hits": 68513,
+      "total_pairs": 91527,
+      "candidate_recall_pct": 74.856
+    },
+    "4_name_token_overlap_and_country": {
+      "hits": 77842,
+      "total_pairs": 91527,
+      "candidate_recall_pct": 85.048
+    },
+    "10_composite_multi_signal": {
+      "hits": 83331,
+      "total_pairs": 91527,
+      "candidate_recall_pct": 91.045
+    },
+    "8_house_number_and_country": {
+      "hits": 69329,
+      "total_pairs": 91527,
+      "candidate_recall_pct": 75.747
+    },
+    "9_address_tokens_and_country": {
+      "hits": 87497,
+      "total_pairs": 91527,
+      "candidate_recall_pct": 95.597
+    },
+    "6_city_match_and_country": {
+      "hits": 48468,
+      "total_pairs": 91527,
+      "candidate_recall_pct": 52.955
+    },
+    "7_state_and_country": {
+      "hits": 62424,
+      "total_pairs": 91527,
+      "candidate_recall_pct": 68.203
+    },
+    "1_exact_norm_name": {
+      "hits": 23200,
+      "total_pairs": 91527,
+      "candidate_recall_pct": 25.348
+    },
+    "2_norm_name_and_country": {
+      "hits": 23200,
+      "total_pairs": 91527,
+      "candidate_recall_pct": 25.348
+    },
+    "5_zip_code": {
+      "hits": 4364,
+      "total_pairs": 91527,
+      "candidate_recall_pct": 4.768
+    }
+  }
+}

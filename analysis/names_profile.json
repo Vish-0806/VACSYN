@@ -1,0 +1,845 @@
+{
+  "train_source1": {
+    "source": "train_source1",
+    "total_rows": 2206821,
+    "unique_raw_names": 1539229,
+    "duplicate_raw_names_count": 177793,
+    "rows_with_duplicate_raw_name": 845385,
+    "pct_rows_with_duplicate_raw_name": 38.308,
+    "top_10_frequent_raw_names": [
+      {
+        "name": "Primary Care Group",
+        "count": 253
+      },
+      {
+        "name": "Ear Nose & Throat Group",
+        "count": 251
+      },
+      {
+        "name": "Pediatric Group",
+        "count": 222
+      },
+      {
+        "name": "Womens Health Group",
+        "count": 220
+      },
+      {
+        "name": "Physical Therapy Group",
+        "count": 218
+      },
+      {
+        "name": "Pediatric Dental Group",
+        "count": 216
+      },
+      {
+        "name": "Behavioral Health Group",
+        "count": 215
+      },
+      {
+        "name": "Chiropractic Group",
+        "count": 209
+      },
+      {
+        "name": "Orthopedic Group",
+        "count": 208
+      },
+      {
+        "name": "Eye Group",
+        "count": 207
+      }
+    ],
+    "unique_normalized_names": 1522166,
+    "duplicate_normalized_names_count": 180374,
+    "rows_with_duplicate_norm_name": 865029,
+    "pct_rows_with_duplicate_norm_name": 39.198,
+    "top_10_duplicated_normalized_names": [
+      {
+        "name": "primary care group",
+        "count": 253
+      },
+      {
+        "name": "ear nose and throat group",
+        "count": 251
+      },
+      {
+        "name": "pediatric group",
+        "count": 222
+      },
+      {
+        "name": "womens health group",
+        "count": 220
+      },
+      {
+        "name": "physical therapy group",
+        "count": 218
+      },
+      {
+        "name": "pediatric dental group",
+        "count": 216
+      },
+      {
+        "name": "behavioral health group",
+        "count": 215
+      },
+      {
+        "name": "chiropractic group",
+        "count": 209
+      },
+      {
+        "name": "orthopedic group",
+        "count": 208
+      },
+      {
+        "name": "eye group",
+        "count": 207
+      }
+    ],
+    "unique_legal_stripped_names": 1349440,
+    "normalized_group_size_distribution": {
+      "size_1": 1341792,
+      "size_2_to_5": 154820,
+      "size_50_plus": 1383,
+      "size_6_to_10": 14879,
+      "size_11_to_50": 9292
+    },
+    "sample_mappings": [
+      {
+        "raw": "Orelee's Barbershop",
+        "normalized": "orelee s barbershop",
+        "legal_stripped": "orelee s barbershop"
+      },
+      {
+        "raw": "Prime Money",
+        "normalized": "prime money",
+        "legal_stripped": "prime money"
+      },
+      {
+        "raw": "B+ Retail Inc",
+        "normalized": "b retail inc",
+        "legal_stripped": "b retail"
+      },
+      {
+        "raw": "Christ Chapel",
+        "normalized": "christ chapel",
+        "legal_stripped": "christ chapel"
+      },
+      {
+        "raw": "Prabhav Business Center",
+        "normalized": "prabhav business center",
+        "legal_stripped": "prabhav business center"
+      }
+    ],
+    "collapsing_examples": []
+  },
+  "train_source2": {
+    "source": "train_source2",
+    "total_rows": 5034616,
+    "unique_raw_names": 4402009,
+    "duplicate_raw_names_count": 239779,
+    "rows_with_duplicate_raw_name": 872386,
+    "pct_rows_with_duplicate_raw_name": 17.328,
+    "top_10_frequent_raw_names": [
+      {
+        "name": "Primary Care",
+        "count": 320
+      },
+      {
+        "name": "Physical Therapy",
+        "count": 307
+      },
+      {
+        "name": "Urgent Care",
+        "count": 297
+      },
+      {
+        "name": "Womens Health",
+        "count": 297
+      },
+      {
+        "name": "Behavioral Health",
+        "count": 296
+      },
+      {
+        "name": "Internal Medicine",
+        "count": 288
+      },
+      {
+        "name": "Pediatric Dentistry",
+        "count": 274
+      },
+      {
+        "name": "earnosethroat.com",
+        "count": 269
+      },
+      {
+        "name": "Pediatric Dental",
+        "count": 268
+      },
+      {
+        "name": "Ear Nose & Throat",
+        "count": 220
+      }
+    ],
+    "unique_normalized_names": 3751587,
+    "duplicate_normalized_names_count": 362197,
+    "rows_with_duplicate_norm_name": 1645226,
+    "pct_rows_with_duplicate_norm_name": 32.678,
+    "top_10_duplicated_normalized_names": [
+      {
+        "name": "",
+        "count": 455759
+      },
+      {
+        "name": "private limited",
+        "count": 1672
+      },
+      {
+        "name": "primary care",
+        "count": 539
+      },
+      {
+        "name": "physical therapy",
+        "count": 538
+      },
+      {
+        "name": "womens health",
+        "count": 498
+      },
+      {
+        "name": "pediatric dental",
+        "count": 486
+      },
+      {
+        "name": "urgent care",
+        "count": 482
+      },
+      {
+        "name": "behavioral health",
+        "count": 481
+      },
+      {
+        "name": "internal medicine",
+        "count": 480
+      },
+      {
+        "name": "pediatric dentistry",
+        "count": 465
+      }
+    ],
+    "unique_legal_stripped_names": 3254470,
+    "normalized_group_size_distribution": {
+      "size_50_plus": 908,
+      "size_1": 3389390,
+      "size_2_to_5": 335609,
+      "size_11_to_50": 9120,
+      "size_6_to_10": 16560
+    },
+    "sample_mappings": [
+      {
+        "raw": "\u0930\u093e\u092e \u092e\u093e\u0930\u094d\u0915\u0947\u091f\u093f\u0902\u0917 \u092a\u094d\u0930\u093e\u0907\u0935\u0947\u091f \u0932\u093f\u092e\u093f\u091f\u0947\u0921",
+        "normalized": "",
+        "legal_stripped": ""
+      },
+      {
+        "raw": "-- Holloway Peak Inc Seafood",
+        "normalized": "holloway peak inc seafood",
+        "legal_stripped": "holloway peak inc seafood"
+      },
+      {
+        "raw": "\u0906\u0926\u093f\u0924\u094d\u092f \u092a\u094d\u0930\u0949\u092a\u0930\u094d\u091f\u0940\u091c \u090f\u0932\u090f\u0932\u092a\u0940",
+        "normalized": "",
+        "legal_stripped": ""
+      },
+      {
+        "raw": "Summit Inc",
+        "normalized": "summit inc",
+        "legal_stripped": "summit"
+      },
+      {
+        "raw": "Delta Tetlecommunication Inc",
+        "normalized": "delta tetlecommunication inc",
+        "legal_stripped": "delta tetlecommunication"
+      }
+    ],
+    "collapsing_examples": [
+      {
+        "normalized": "",
+        "raw_variants": [
+          "\u0930\u093f\u092f\u0932 \u092e\u0949\u0921\u0930\u094d\u0928 \u092b\u0942\u0921 \u0932\u093f\u092e\u093f\u091f\u0947\u0921",
+          "\u0906\u0926\u093f\u0924\u094d\u092f \u092a\u094d\u0930\u0949\u092a\u0930\u094d\u091f\u0940\u091c \u090f\u0932\u090f\u0932\u092a\u0940",
+          "\u0930\u093e\u092e \u092e\u093e\u0930\u094d\u0915\u0947\u091f\u093f\u0902\u0917 \u092a\u094d\u0930\u093e\u0907\u0935\u0947\u091f \u0932\u093f\u092e\u093f\u091f\u0947\u0921",
+          "\u0938\u0928 \u0915\u0902\u0938\u094d\u091f\u094d\u0930\u0915\u094d\u0936\u0902\u0938 \u092a\u094d\u0930\u093e\u0907\u0935\u0947\u091f \u0932\u093f\u092e\u093f\u091f\u0947\u0921",
+          "\u0b95\u0bc1\u0bb3\u0bcb\u0baa\u0bb2\u0bcd \u0baa\u0bbf\u0b9a\u0bbf\u0ba9\u0bb8\u0bcd \u0baa\u0bbf\u0bb0\u0bc8\u0bb5\u0bc7\u0b9f\u0bcd \u0bb2\u0bbf\u0bae\u0bbf\u0b9f\u0bc6\u0b9f\u0bcd"
+        ]
+      }
+    ]
+  },
+  "train_source3": {
+    "source": "train_source3",
+    "total_rows": 5285603,
+    "unique_raw_names": 4651609,
+    "duplicate_raw_names_count": 258276,
+    "rows_with_duplicate_raw_name": 892270,
+    "pct_rows_with_duplicate_raw_name": 16.881,
+    "top_10_frequent_raw_names": [
+      {
+        "name": "Primary Care",
+        "count": 421
+      },
+      {
+        "name": "Physical Therapy",
+        "count": 399
+      },
+      {
+        "name": "Pediatric Dental",
+        "count": 393
+      },
+      {
+        "name": "Womens Health",
+        "count": 379
+      },
+      {
+        "name": "Urgent Care",
+        "count": 377
+      },
+      {
+        "name": "Pediatric Dentistry",
+        "count": 361
+      },
+      {
+        "name": "Behavioral Health",
+        "count": 330
+      },
+      {
+        "name": "Pediatric",
+        "count": 321
+      },
+      {
+        "name": "Internal Medicine",
+        "count": 319
+      },
+      {
+        "name": "The Dent",
+        "count": 254
+      }
+    ],
+    "unique_normalized_names": 4048680,
+    "duplicate_normalized_names_count": 393931,
+    "rows_with_duplicate_norm_name": 1630854,
+    "pct_rows_with_duplicate_norm_name": 30.855,
+    "top_10_duplicated_normalized_names": [
+      {
+        "name": "",
+        "count": 243630
+      },
+      {
+        "name": "private limited",
+        "count": 2957
+      },
+      {
+        "name": "pvt ltd",
+        "count": 694
+      },
+      {
+        "name": "limited",
+        "count": 581
+      },
+      {
+        "name": "physical therapy",
+        "count": 533
+      },
+      {
+        "name": "primary care",
+        "count": 531
+      },
+      {
+        "name": "pediatric dental",
+        "count": 518
+      },
+      {
+        "name": "urgent care",
+        "count": 495
+      },
+      {
+        "name": "pediatric dentistry",
+        "count": 482
+      },
+      {
+        "name": "womens health",
+        "count": 480
+      }
+    ],
+    "unique_legal_stripped_names": 3551124,
+    "normalized_group_size_distribution": {
+      "size_1": 3654749,
+      "size_2_to_5": 358351,
+      "size_6_to_10": 22167,
+      "size_50_plus": 1201,
+      "size_11_to_50": 12212
+    },
+    "sample_mappings": [
+      {
+        "raw": "wilfordhancock.com",
+        "normalized": "wilfordhancock com",
+        "legal_stripped": "wilfordhancock com"
+      },
+      {
+        "raw": "International South Consultants Private Ltd",
+        "normalized": "international south consultants private ltd",
+        "legal_stripped": "international south consultants"
+      },
+      {
+        "raw": "LLC Moncada L\u00e9arning Center",
+        "normalized": "llc moncada learning center",
+        "legal_stripped": "llc moncada learning center"
+      },
+      {
+        "raw": "Moyna's Coffee",
+        "normalized": "moyna s coffee",
+        "legal_stripped": "moyna s coffee"
+      },
+      {
+        "raw": "Pvt. EFS Print Ventures Ltd.",
+        "normalized": "pvt efs print ventures ltd",
+        "legal_stripped": "pvt efs print ventures"
+      }
+    ],
+    "collapsing_examples": [
+      {
+        "normalized": "",
+        "raw_variants": [
+          "\u092c\u0947\u0938\u094d\u091f \u092e\u093e\u0901 \u0907\u0902\u091f\u0930\u0928\u0947\u0936\u0928\u0932 \u092a\u094d\u0930\u093e\u0907\u0935\u0947\u091f \u0932\u093f\u092e\u093f\u091f\u0947\u0921",
+          "\u0938\u0928\u0930\u093e\u0907\u091c \u092b\u0942\u0921\u094d\u0938 \u092a\u094d\u0930\u093e\u0907\u0935\u0947\u091f \u0932\u093f\u092e\u093f\u091f\u0947\u0921",
+          "\u0d38\u0d3f\u0d7d\u0d35\u0d7c \u0d15\u0d7a\u0d38\u0d7e\u0d1f\u0d4d\u0d1f\u0d7b\u0d38\u0d3f \u0d2a\u0d4d\u0d30\u0d48\u0d35\u0d31\u0d4d\u0d31\u0d4d \u0d32\u0d3f\u0d2e\u0d3f\u0d31\u0d4d\u0d31\u0d21\u0d4d",
+          "\u0917\u094d\u0930\u0947\u091f \u090f\u0915\u094d\u0938\u092a\u094b\u0930\u094d\u091f\u094d\u0938 \u092a\u094d\u0930\u093e\u0907\u0935\u0947\u091f \u0932\u093f\u092e\u093f\u091f\u0947\u0921",
+          "\u092c\u094d\u0932\u0942 \u091f\u0947\u0915\u094d\u0928\u094b\u0932\u0949\u091c\u0940\u091c"
+        ]
+      },
+      {
+        "normalized": "southern",
+        "raw_variants": [
+          "Southern \u0baa\u0bb5\u0bb0\u0bcd",
+          "Southern \u0c87\u0ca8\u0ccd\u0cb5\u0cc6\u0cb8\u0ccd\u0c9f\u0ccd\u200c\u0cae\u0cc6\u0c82\u0c9f\u0ccd \u0cb2\u0cbf\u0cae\u0cbf\u0c9f\u0cc6\u0ca1\u0ccd"
+        ]
+      }
+    ]
+  },
+  "test_source1": {
+    "source": "test_source1",
+    "total_rows": 1732544,
+    "unique_raw_names": 1238867,
+    "duplicate_raw_names_count": 129955,
+    "rows_with_duplicate_raw_name": 623632,
+    "pct_rows_with_duplicate_raw_name": 35.995,
+    "top_10_frequent_raw_names": [
+      {
+        "name": "Bordeaux Club SARL",
+        "count": 205
+      },
+      {
+        "name": "Nantes Club SARL",
+        "count": 157
+      },
+      {
+        "name": "Lille Club SARL",
+        "count": 147
+      },
+      {
+        "name": "Urgent Care Group",
+        "count": 123
+      },
+      {
+        "name": "Lille Club SAS",
+        "count": 122
+      },
+      {
+        "name": "Bordeaux Club SAS",
+        "count": 118
+      },
+      {
+        "name": "Nantes Club SAS",
+        "count": 117
+      },
+      {
+        "name": "Bordeaux Amicale SARL",
+        "count": 116
+      },
+      {
+        "name": "Ear Nose & Throat Group",
+        "count": 112
+      },
+      {
+        "name": "Internal Medicine Group",
+        "count": 111
+      }
+    ],
+    "unique_normalized_names": 1228919,
+    "duplicate_normalized_names_count": 131793,
+    "rows_with_duplicate_norm_name": 635418,
+    "pct_rows_with_duplicate_norm_name": 36.675,
+    "top_10_duplicated_normalized_names": [
+      {
+        "name": "bordeaux club sarl",
+        "count": 205
+      },
+      {
+        "name": "nantes club sarl",
+        "count": 157
+      },
+      {
+        "name": "lille club sarl",
+        "count": 147
+      },
+      {
+        "name": "urgent care group",
+        "count": 123
+      },
+      {
+        "name": "lille club sas",
+        "count": 122
+      },
+      {
+        "name": "bordeaux club sas",
+        "count": 118
+      },
+      {
+        "name": "nantes club sas",
+        "count": 117
+      },
+      {
+        "name": "bordeaux amicale sarl",
+        "count": 116
+      },
+      {
+        "name": "ear nose and throat group",
+        "count": 112
+      },
+      {
+        "name": "internal medicine group",
+        "count": 111
+      }
+    ],
+    "unique_legal_stripped_names": 1097165,
+    "normalized_group_size_distribution": {
+      "size_1": 1097126,
+      "size_2_to_5": 110115,
+      "size_6_to_10": 11561,
+      "size_11_to_50": 9896,
+      "size_50_plus": 221
+    },
+    "sample_mappings": [
+      {
+        "raw": "Zephay Labs Inc",
+        "normalized": "zephay labs inc",
+        "legal_stripped": "zephay labs"
+      },
+      {
+        "raw": "Vision Partners Corp",
+        "normalized": "vision partners corp",
+        "legal_stripped": "vision partners"
+      },
+      {
+        "raw": "<< Team Ecole",
+        "normalized": "team ecole",
+        "legal_stripped": "team ecole"
+      },
+      {
+        "raw": "Red Perfect Trading",
+        "normalized": "red perfect trading",
+        "legal_stripped": "red perfect trading"
+      },
+      {
+        "raw": "ZNB Club SARL",
+        "normalized": "znb club sarl",
+        "legal_stripped": "znb club"
+      }
+    ],
+    "collapsing_examples": []
+  },
+  "test_source2": {
+    "source": "test_source2",
+    "total_rows": 4887273,
+    "unique_raw_names": 4311041,
+    "duplicate_raw_names_count": 223103,
+    "rows_with_duplicate_raw_name": 799335,
+    "pct_rows_with_duplicate_raw_name": 16.355,
+    "top_10_frequent_raw_names": [
+      {
+        "name": "CC",
+        "count": 302
+      },
+      {
+        "name": "PC",
+        "count": 197
+      },
+      {
+        "name": "LC",
+        "count": 194
+      },
+      {
+        "name": "AC",
+        "count": 174
+      },
+      {
+        "name": "SC",
+        "count": 174
+      },
+      {
+        "name": "DC",
+        "count": 159
+      },
+      {
+        "name": "Urgent Care",
+        "count": 156
+      },
+      {
+        "name": "Womens Health",
+        "count": 152
+      },
+      {
+        "name": "BC",
+        "count": 148
+      },
+      {
+        "name": "MC",
+        "count": 147
+      }
+    ],
+    "unique_normalized_names": 3677126,
+    "duplicate_normalized_names_count": 317509,
+    "rows_with_duplicate_norm_name": 1527656,
+    "pct_rows_with_duplicate_norm_name": 31.258,
+    "top_10_duplicated_normalized_names": [
+      {
+        "name": "",
+        "count": 526050
+      },
+      {
+        "name": "private limited",
+        "count": 1581
+      },
+      {
+        "name": "pvt ltd",
+        "count": 390
+      },
+      {
+        "name": "limited",
+        "count": 369
+      },
+      {
+        "name": "cc",
+        "count": 302
+      },
+      {
+        "name": "urgent care",
+        "count": 280
+      },
+      {
+        "name": "womens health",
+        "count": 262
+      },
+      {
+        "name": "primary care",
+        "count": 260
+      },
+      {
+        "name": "behavioral health",
+        "count": 246
+      },
+      {
+        "name": "pediatric dentistry",
+        "count": 244
+      }
+    ],
+    "unique_legal_stripped_names": 3227079,
+    "normalized_group_size_distribution": {
+      "size_1": 3359617,
+      "size_2_to_5": 294082,
+      "size_11_to_50": 7949,
+      "size_50_plus": 495,
+      "size_6_to_10": 14983
+    },
+    "sample_mappings": [
+      {
+        "raw": "Brahma Infosoft",
+        "normalized": "brahma infosoft",
+        "legal_stripped": "brahma infosoft"
+      },
+      {
+        "raw": "Marina Ecole France Sarl",
+        "normalized": "marina ecole france sarl",
+        "legal_stripped": "marina ecole france"
+      },
+      {
+        "raw": "SCI Ptit \u00c0micale",
+        "normalized": "sci ptit amicale",
+        "legal_stripped": "sci ptit amicale"
+      },
+      {
+        "raw": "Apex Summit",
+        "normalized": "apex summit",
+        "legal_stripped": "apex summit"
+      },
+      {
+        "raw": "Fresh Truist",
+        "normalized": "fresh truist",
+        "legal_stripped": "fresh truist"
+      }
+    ],
+    "collapsing_examples": [
+      {
+        "normalized": "",
+        "raw_variants": [
+          "\u0987\u09a8\u09cb\u09ad\u09c7\u099f\u09bf\u09ad \u09aa\u09cd\u09b0\u09cb\u09a1\u09be\u0995\u09cd\u099f\u09b8 \u09b0\u09c7\u09b8\u09cd\u099f\u09c1\u09b0\u09c7\u09a8\u09cd\u099f \u09b2\u09bf\u09ae\u09bf\u099f\u09c7\u09a1",
+          "\u0d05\u0d7d \u0d15\u0d7a\u0d38\u0d4d\u0d1f\u0d4d\u0d30\u0d15\u0d4d\u0d37\u0d7b\u0d38\u0d4d \u0d2b\u0d41\u0d21\u0d4d\u0d38\u0d4d \u0d2a\u0d4d\u0d30\u0d48\u0d35\u0d31\u0d4d\u0d31\u0d4d \u0d32\u0d3f\u0d2e\u0d3f\u0d31\u0d4d\u0d31\u0d21\u0d4d",
+          "\u0a38\u0a15\u0a3e\u0a08 \u0a05\u0a30\u0a3f\u0a39\u0a70\u0a24 \u0a17\u0a32\u0a4b\u0a2c\u0a32 \u0a2a\u0a4d\u0a30\u0a3e. \u0a32\u0a3f.",
+          "\u0906\u0928\u0902\u0926 \u092b\u093e\u0909\u0902\u0921\u0947\u0936\u0928 \u092a\u094d\u0930\u093e\u0907\u0935\u0947\u091f \u0932\u093f\u092e\u093f\u091f\u0947\u0921",
+          "\u0c15\u0c43\u0c37\u0c4d\u0c23\u0c3e \u0c07\u0c02\u0c2a\u0c46\u0c15\u0c4d\u0c38\u0c4d \u0c32\u0c3f\u0c2e\u0c3f\u0c1f\u0c46\u0c21\u0c4d"
+        ]
+      }
+    ]
+  },
+  "test_source3": {
+    "source": "test_source3",
+    "total_rows": 5082316,
+    "unique_raw_names": 4521929,
+    "duplicate_raw_names_count": 238156,
+    "rows_with_duplicate_raw_name": 798543,
+    "pct_rows_with_duplicate_raw_name": 15.712,
+    "top_10_frequent_raw_names": [
+      {
+        "name": "CC",
+        "count": 387
+      },
+      {
+        "name": "SC",
+        "count": 358
+      },
+      {
+        "name": "AC",
+        "count": 297
+      },
+      {
+        "name": "PC",
+        "count": 286
+      },
+      {
+        "name": "LC",
+        "count": 245
+      },
+      {
+        "name": "MC",
+        "count": 243
+      },
+      {
+        "name": "BC",
+        "count": 226
+      },
+      {
+        "name": "CS",
+        "count": 218
+      },
+      {
+        "name": "Internal Medicine",
+        "count": 214
+      },
+      {
+        "name": "DC",
+        "count": 213
+      }
+    ],
+    "unique_normalized_names": 3950221,
+    "duplicate_normalized_names_count": 347867,
+    "rows_with_duplicate_norm_name": 1479962,
+    "pct_rows_with_duplicate_norm_name": 29.12,
+    "top_10_duplicated_normalized_names": [
+      {
+        "name": "",
+        "count": 280779
+      },
+      {
+        "name": "private limited",
+        "count": 3158
+      },
+      {
+        "name": "pvt ltd",
+        "count": 715
+      },
+      {
+        "name": "limited",
+        "count": 641
+      },
+      {
+        "name": "cc",
+        "count": 387
+      },
+      {
+        "name": "llp",
+        "count": 365
+      },
+      {
+        "name": "sc",
+        "count": 358
+      },
+      {
+        "name": "global",
+        "count": 311
+      },
+      {
+        "name": "ac",
+        "count": 297
+      },
+      {
+        "name": "pc",
+        "count": 287
+      }
+    ],
+    "unique_legal_stripped_names": 3488437,
+    "normalized_group_size_distribution": {
+      "size_50_plus": 737,
+      "size_1": 3602354,
+      "size_6_to_10": 19778,
+      "size_2_to_5": 315264,
+      "size_11_to_50": 12088
+    },
+    "sample_mappings": [
+      {
+        "raw": "\u092e\u0949\u0921\u0930\u094d\u0928 \u092b\u093e\u0907\u0928\u0947\u0902\u0938",
+        "normalized": "",
+        "legal_stripped": ""
+      },
+      {
+        "raw": "Shri Sai Infratech Co",
+        "normalized": "shri sai infratech co",
+        "legal_stripped": "shri sai infratech"
+      },
+      {
+        "raw": "Fractales Amis Groupe S.A.S",
+        "normalized": "fractales amis groupe s a s",
+        "legal_stripped": "fractales amis groupe s a s"
+      },
+      {
+        "raw": "Shri Supreme Consulting Private  (Limited)",
+        "normalized": "shri supreme consulting private limited",
+        "legal_stripped": "shri supreme consulting"
+      },
+      {
+        "raw": "Prime Realty Ventures Public Limited",
+        "normalized": "prime realty ventures public limited",
+        "legal_stripped": "prime realty ventures public"
+      }
+    ],
+    "collapsing_examples": [
+      {
+        "normalized": "",
+        "raw_variants": [
+          "\u092e\u0949\u0921\u0930\u094d\u0928 \u092b\u093e\u0907\u0928\u0947\u0902\u0938",
+          "\u0932\u0915\u094d\u0937\u094d\u092e\u0940 \u0907\u0902\u092b\u094b\u091f\u0947\u0915 \u090f\u091c\u0947\u0902\u0938\u0940\u091c \u092a\u094d\u0930\u093e\u0907\u0935\u0947\u091f \u0932\u093f\u092e\u093f\u091f\u0947\u0921",
+          "\u0936\u0915\u094d\u0924\u093f \u0907\u092e\u094d\u092a\u0947\u0915\u094d\u0938 \u092a\u094d\u0930\u093e\u0907\u0935\u0947\u091f \u0932\u093f\u092e\u093f\u091f\u0947\u0921",
+          "\u0ca1\u0cbf\u0c9c\u0cbf\u0c9f\u0cb2\u0ccd \u0cac\u0cbf\u0cb2\u0ccd\u0ca1\u0cb0\u0ccd\u0cb8\u0ccd \u0caa\u0ccd\u0cb0\u0cc8\u0cb5\u0cc7\u0c9f\u0ccd \u0cb2\u0cbf\u0cae\u0cbf\u0c9f\u0cc6\u0ca1\u0ccd",
+          "\u0b88\u0bb8\u0bcd\u0b9f\u0bb0\u0bcd\u0ba9\u0bcd \u0b95\u0ba9\u0bcd\u0b9a\u0bb2\u0bcd\u0b9f\u0ba9\u0bcd\u0b9a\u0bbf \u0baa\u0bbf\u0bb0\u0bc8\u0bb5\u0bc7\u0b9f\u0bcd \u0bb2\u0bbf\u0bae\u0bbf\u0b9f\u0bc6\u0b9f\u0bcd"
+        ]
+      }
+    ]
+  }
+}

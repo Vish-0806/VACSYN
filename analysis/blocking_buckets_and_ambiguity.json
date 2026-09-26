@@ -1,0 +1,68 @@
+{
+  "blocking_bucket_metrics": {
+    "1_exact_normalized_business_name": {
+      "unique_keys": 399815,
+      "avg_bucket_size": 1.25,
+      "max_bucket_size": 60
+    },
+    "2_normalized_name_plus_country": {
+      "unique_keys": 399929,
+      "avg_bucket_size": 1.25,
+      "max_bucket_size": 60
+    },
+    "3_name_prefix_5_plus_country": {
+      "unique_keys": 72272,
+      "avg_bucket_size": 6.92,
+      "max_bucket_size": 3388
+    },
+    "4_name_tokens_plus_country": {
+      "unique_keys": 67602,
+      "avg_bucket_size": 14.52,
+      "max_bucket_size": 9597
+    },
+    "5_postal_or_zip_code": {
+      "unique_keys": 15496,
+      "avg_bucket_size": 2.13,
+      "max_bucket_size": 23
+    },
+    "6_city_plus_country": {
+      "unique_keys": 51351,
+      "avg_bucket_size": 9.74,
+      "max_bucket_size": 10837
+    },
+    "7_state_plus_country": {
+      "unique_keys": 39848,
+      "avg_bucket_size": 12.55,
+      "max_bucket_size": 36604
+    },
+    "8_house_number_plus_country": {
+      "unique_keys": 30084,
+      "avg_bucket_size": 15.68,
+      "max_bucket_size": 8704
+    },
+    "9_address_tokens_plus_country": {
+      "unique_keys": 69460,
+      "avg_bucket_size": 14.4,
+      "max_bucket_size": 53435
+    },
+    "10_composite_name_token_plus_house_num": {
+      "unique_keys": 403214,
+      "avg_bucket_size": 1.17,
+      "max_bucket_size": 101
+    }
+  },
+  "ambiguity_analysis": {
+    "analyzed_records": 500000,
+    "same_name_different_address_entities": 14716,
+    "same_name_different_address_pct": 7.36,
+    "same_address_different_business_locations": 1059,
+    "same_address_different_business_pct": 0.53,
+    "very_short_names_count": 130,
+    "very_short_names_pct": 0.03,
+    "very_long_names_count": 496,
+    "very_long_names_pct": 0.1,
+    "ampersand_in_name_pct": 5.05,
+    "has_legal_suffix_pct": 0.0,
+    "has_common_abbreviations_pct": 2.57
+  }
+}

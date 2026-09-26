@@ -1,0 +1,2472 @@
+{
+  "metadata": {
+    "challenge": "Amazon ML Challenge 2026 - Business Entity Resolution",
+    "created_at": "2026-09-26",
+    "author": "Antigravity Pair Programmer"
+  },
+  "file_inspection": {
+    "student_resource\\dataset\\train\\train_source1.tsv": {
+      "filename": "train_source1.tsv",
+      "relative_path": "student_resource/dataset/train/train_source1.tsv",
+      "file_size_bytes": 210069713,
+      "file_size_mb": 200.34,
+      "has_header": true,
+      "delimiter": "\\t",
+      "column_names": [
+        "entity_id",
+        "business_name",
+        "business_address",
+        "country"
+      ],
+      "number_of_columns": 4,
+      "total_lines": 2206822,
+      "data_row_count": 2206821,
+      "encoding": "utf-8"
+    },
+    "student_resource\\dataset\\train\\train_source2.tsv": {
+      "filename": "train_source2.tsv",
+      "relative_path": "student_resource/dataset/train/train_source2.tsv",
+      "file_size_bytes": 489301488,
+      "file_size_mb": 466.63,
+      "has_header": true,
+      "delimiter": "\\t",
+      "column_names": [
+        "entity_id",
+        "business_name",
+        "business_address",
+        "country"
+      ],
+      "number_of_columns": 4,
+      "total_lines": 5034617,
+      "data_row_count": 5034616,
+      "encoding": "utf-8"
+    },
+    "student_resource\\dataset\\train\\train_source3.tsv": {
+      "filename": "train_source3.tsv",
+      "relative_path": "student_resource/dataset/train/train_source3.tsv",
+      "file_size_bytes": 503705637,
+      "file_size_mb": 480.37,
+      "has_header": true,
+      "delimiter": "\\t",
+      "column_names": [
+        "entity_id",
+        "business_name",
+        "business_address",
+        "country"
+      ],
+      "number_of_columns": 4,
+      "total_lines": 5285604,
+      "data_row_count": 5285603,
+      "encoding": "utf-8"
+    },
+    "student_resource\\dataset\\train\\train_ground_truth.tsv": {
+      "filename": "train_ground_truth.tsv",
+      "relative_path": "student_resource/dataset/train/train_ground_truth.tsv",
+      "file_size_bytes": 127015583,
+      "file_size_mb": 121.13,
+      "has_header": true,
+      "delimiter": "\\t",
+      "column_names": [
+        "source1_entity_id",
+        "matched_entity_ids"
+      ],
+      "number_of_columns": 2,
+      "total_lines": 2206822,
+      "data_row_count": 2206821,
+      "encoding": "utf-8"
+    },
+    "student_resource\\dataset\\test\\test_source1.tsv": {
+      "filename": "test_source1.tsv",
+      "relative_path": "student_resource/dataset/test/test_source1.tsv",
+      "file_size_bytes": 175022086,
+      "file_size_mb": 166.91,
+      "has_header": true,
+      "delimiter": "\\t",
+      "column_names": [
+        "entity_id",
+        "business_name",
+        "business_address",
+        "country"
+      ],
+      "number_of_columns": 4,
+      "total_lines": 1732545,
+      "data_row_count": 1732544,
+      "encoding": "utf-8"
+    },
+    "student_resource\\dataset\\test\\test_source2.tsv": {
+      "filename": "test_source2.tsv",
+      "relative_path": "student_resource/dataset/test/test_source2.tsv",
+      "file_size_bytes": 509456422,
+      "file_size_mb": 485.86,
+      "has_header": true,
+      "delimiter": "\\t",
+      "column_names": [
+        "entity_id",
+        "business_name",
+        "business_address",
+        "country"
+      ],
+      "number_of_columns": 4,
+      "total_lines": 4887274,
+      "data_row_count": 4887273,
+      "encoding": "utf-8"
+    },
+    "student_resource\\dataset\\test\\test_source3.tsv": {
+      "filename": "test_source3.tsv",
+      "relative_path": "student_resource/dataset/test/test_source3.tsv",
+      "file_size_bytes": 506002772,
+      "file_size_mb": 482.56,
+      "has_header": true,
+      "delimiter": "\\t",
+      "column_names": [
+        "entity_id",
+        "business_name",
+        "business_address",
+        "country"
+      ],
+      "number_of_columns": 4,
+      "total_lines": 5082317,
+      "data_row_count": 5082316,
+      "encoding": "utf-8"
+    }
+  },
+  "sources_profile": {
+    "train_source1": {
+      "name": "train_source1",
+      "file_size_mb": 200.34,
+      "total_rows": 2206821,
+      "total_columns": 4,
+      "column_names": [
+        "entity_id",
+        "business_name",
+        "business_address",
+        "country"
+      ],
+      "missing_values": {
+        "entity_id": {
+          "missing_count": 0,
+          "missing_percentage": 0.0
+        },
+        "business_name": {
+          "missing_count": 0,
+          "missing_percentage": 0.0
+        },
+        "business_address": {
+          "missing_count": 0,
+          "missing_percentage": 0.0
+        },
+        "country": {
+          "missing_count": 0,
+          "missing_percentage": 0.0
+        }
+      },
+      "business_name_stats": {
+        "min_length": 3,
+        "max_length": 105,
+        "mean_length": 24.03,
+        "median_length": 24,
+        "percentiles": {
+          "p25": 18,
+          "p50": 24,
+          "p75": 30,
+          "p90": 34,
+          "p95": 37,
+          "p99": 42
+        }
+      },
+      "business_address_stats": {
+        "min_length": 11,
+        "max_length": 256,
+        "mean_length": 52.07,
+        "median_length": 41,
+        "percentiles": {
+          "p25": 33,
+          "p50": 41,
+          "p75": 70,
+          "p90": 90,
+          "p95": 103,
+          "p99": 124
+        }
+      },
+      "country_distribution": {
+        "US": {
+          "count": 1323633,
+          "percentage": 59.979
+        },
+        "India": {
+          "count": 883188,
+          "percentage": 40.021
+        }
+      }
+    },
+    "train_source2": {
+      "name": "train_source2",
+      "file_size_mb": 466.63,
+      "total_rows": 5034616,
+      "total_columns": 4,
+      "column_names": [
+        "entity_id",
+        "business_name",
+        "business_address",
+        "country"
+      ],
+      "missing_values": {
+        "entity_id": {
+          "missing_count": 0,
+          "missing_percentage": 0.0
+        },
+        "business_name": {
+          "missing_count": 0,
+          "missing_percentage": 0.0
+        },
+        "business_address": {
+          "missing_count": 168967,
+          "missing_percentage": 3.3561
+        },
+        "country": {
+          "missing_count": 0,
+          "missing_percentage": 0.0
+        }
+      },
+      "business_name_stats": {
+        "min_length": 2,
+        "max_length": 104,
+        "mean_length": 25.1,
+        "median_length": 25,
+        "percentiles": {
+          "p25": 19,
+          "p50": 25,
+          "p75": 31,
+          "p90": 37,
+          "p95": 40,
+          "p99": 48
+        }
+      },
+      "business_address_stats": {
+        "min_length": 8,
+        "max_length": 249,
+        "mean_length": 47.83,
+        "median_length": 37,
+        "percentiles": {
+          "p25": 31,
+          "p50": 37,
+          "p75": 63,
+          "p90": 84,
+          "p95": 97,
+          "p99": 118
+        }
+      },
+      "country_distribution": {
+        "US": {
+          "count": 3016817,
+          "percentage": 59.921
+        },
+        "India": {
+          "count": 2017799,
+          "percentage": 40.079
+        }
+      }
+    },
+    "train_source3": {
+      "name": "train_source3",
+      "file_size_mb": 480.37,
+      "total_rows": 5285603,
+      "total_columns": 4,
+      "column_names": [
+        "entity_id",
+        "business_name",
+        "business_address",
+        "country"
+      ],
+      "missing_values": {
+        "entity_id": {
+          "missing_count": 0,
+          "missing_percentage": 0.0
+        },
+        "business_name": {
+          "missing_count": 0,
+          "missing_percentage": 0.0
+        },
+        "business_address": {
+          "missing_count": 175916,
+          "missing_percentage": 3.3282
+        },
+        "country": {
+          "missing_count": 0,
+          "missing_percentage": 0.0
+        }
+      },
+      "business_name_stats": {
+        "min_length": 2,
+        "max_length": 123,
+        "mean_length": 25.2,
+        "median_length": 25,
+        "percentiles": {
+          "p25": 18,
+          "p50": 25,
+          "p75": 31,
+          "p90": 37,
+          "p95": 42,
+          "p99": 50
+        }
+      },
+      "business_address_stats": {
+        "min_length": 2,
+        "max_length": 240,
+        "mean_length": 48.32,
+        "median_length": 42,
+        "percentiles": {
+          "p25": 35,
+          "p50": 42,
+          "p75": 55,
+          "p90": 78,
+          "p95": 92,
+          "p99": 116
+        }
+      },
+      "country_distribution": {
+        "US": {
+          "count": 3170056,
+          "percentage": 59.975
+        },
+        "India": {
+          "count": 2115547,
+          "percentage": 40.025
+        }
+      }
+    },
+    "test_source1": {
+      "name": "test_source1",
+      "file_size_mb": 166.91,
+      "total_rows": 1732544,
+      "total_columns": 4,
+      "column_names": [
+        "entity_id",
+        "business_name",
+        "business_address",
+        "country"
+      ],
+      "missing_values": {
+        "entity_id": {
+          "missing_count": 0,
+          "missing_percentage": 0.0
+        },
+        "business_name": {
+          "missing_count": 0,
+          "missing_percentage": 0.0
+        },
+        "business_address": {
+          "missing_count": 0,
+          "missing_percentage": 0.0
+        },
+        "country": {
+          "missing_count": 0,
+          "missing_percentage": 0.0
+        }
+      },
+      "business_name_stats": {
+        "min_length": 3,
+        "max_length": 92,
+        "mean_length": 23.84,
+        "median_length": 24,
+        "percentiles": {
+          "p25": 18,
+          "p50": 24,
+          "p75": 29,
+          "p90": 34,
+          "p95": 36,
+          "p99": 42
+        }
+      },
+      "business_address_stats": {
+        "min_length": 11,
+        "max_length": 268,
+        "mean_length": 57.21,
+        "median_length": 50,
+        "percentiles": {
+          "p25": 36,
+          "p50": 50,
+          "p75": 74,
+          "p90": 93,
+          "p95": 105,
+          "p99": 126
+        }
+      },
+      "country_distribution": {
+        "India": {
+          "count": 809986,
+          "percentage": 46.751
+        },
+        "US": {
+          "count": 663106,
+          "percentage": 38.274
+        },
+        "France": {
+          "count": 259452,
+          "percentage": 14.975
+        }
+      }
+    },
+    "test_source2": {
+      "name": "test_source2",
+      "file_size_mb": 485.86,
+      "total_rows": 4887273,
+      "total_columns": 4,
+      "column_names": [
+        "entity_id",
+        "business_name",
+        "business_address",
+        "country"
+      ],
+      "missing_values": {
+        "entity_id": {
+          "missing_count": 0,
+          "missing_percentage": 0.0
+        },
+        "business_name": {
+          "missing_count": 0,
+          "missing_percentage": 0.0
+        },
+        "business_address": {
+          "missing_count": 129408,
+          "missing_percentage": 2.6479
+        },
+        "country": {
+          "missing_count": 0,
+          "missing_percentage": 0.0
+        }
+      },
+      "business_name_stats": {
+        "min_length": 2,
+        "max_length": 102,
+        "mean_length": 25.7,
+        "median_length": 25,
+        "percentiles": {
+          "p25": 19,
+          "p50": 25,
+          "p75": 32,
+          "p90": 38,
+          "p95": 42,
+          "p99": 49
+        }
+      },
+      "business_address_stats": {
+        "min_length": 5,
+        "max_length": 269,
+        "mean_length": 51.78,
+        "median_length": 43,
+        "percentiles": {
+          "p25": 32,
+          "p50": 43,
+          "p75": 68,
+          "p90": 87,
+          "p95": 99,
+          "p99": 120
+        }
+      },
+      "country_distribution": {
+        "India": {
+          "count": 2312565,
+          "percentage": 47.318
+        },
+        "US": {
+          "count": 1871330,
+          "percentage": 38.29
+        },
+        "France": {
+          "count": 703378,
+          "percentage": 14.392
+        }
+      }
+    },
+    "test_source3": {
+      "name": "test_source3",
+      "file_size_mb": 482.56,
+      "total_rows": 5082316,
+      "total_columns": 4,
+      "column_names": [
+        "entity_id",
+        "business_name",
+        "business_address",
+        "country"
+      ],
+      "missing_values": {
+        "entity_id": {
+          "missing_count": 0,
+          "missing_percentage": 0.0
+        },
+        "business_name": {
+          "missing_count": 0,
+          "missing_percentage": 0.0
+        },
+        "business_address": {
+          "missing_count": 136098,
+          "missing_percentage": 2.6779
+        },
+        "country": {
+          "missing_count": 0,
+          "missing_percentage": 0.0
+        }
+      },
+      "business_name_stats": {
+        "min_length": 2,
+        "max_length": 103,
+        "mean_length": 25.66,
+        "median_length": 25,
+        "percentiles": {
+          "p25": 19,
+          "p50": 25,
+          "p75": 32,
+          "p90": 38,
+          "p95": 42,
+          "p99": 50
+        }
+      },
+      "business_address_stats": {
+        "min_length": 5,
+        "max_length": 267,
+        "mean_length": 50.08,
+        "median_length": 44,
+        "percentiles": {
+          "p25": 36,
+          "p50": 44,
+          "p75": 59,
+          "p90": 82,
+          "p95": 95,
+          "p99": 118
+        }
+      },
+      "country_distribution": {
+        "India": {
+          "count": 2405000,
+          "percentage": 47.321
+        },
+        "US": {
+          "count": 1945701,
+          "percentage": 38.284
+        },
+        "France": {
+          "count": 731615,
+          "percentage": 14.395
+        }
+      }
+    }
+  },
+  "ground_truth_profile": {
+    "total_s1_entities": 2206821,
+    "total_matches_across_all": 7638365,
+    "average_matches_per_s1": 3.4613,
+    "max_matches_for_one_s1": 11,
+    "max_matches_example": [
+      "S1-765235386",
+      [
+        "S2-974245938",
+        "S2-780050080",
+        "S2-530977555",
+        "S2-999166703",
+        "S2-91149265",
+        "S3-530547708",
+        "S3-139315478",
+        "S3-253465500",
+        "S3-792739406",
+        "S3-78491172",
+        "S3-466429859"
+      ]
+    ],
+    "match_count_distribution": {
+      "zero_matches": 123247,
+      "one_match": 119157,
+      "two_matches": 375212,
+      "three_matches": 530841,
+      "four_or_more": 1058364
+    },
+    "match_count_distribution_percentage": {
+      "zero_matches": 5.5848,
+      "one_match": 5.3995,
+      "two_matches": 17.0024,
+      "three_matches": 24.0546,
+      "four_or_more": 47.9588
+    },
+    "detailed_histogram": {
+      "0": 123247,
+      "1": 119157,
+      "2": 375212,
+      "3": 530841,
+      "4": 484115,
+      "5": 321957,
+      "6": 164868,
+      "7": 63968,
+      "8": 18680,
+      "9": 4205,
+      "10": 534,
+      "11": 37
+    },
+    "matches_pointing_to_source2": 3693619,
+    "matches_pointing_to_source3": 3944746,
+    "s1_entities_with_both_s2_and_s3": 1776047,
+    "s1_entities_with_both_s2_and_s3_pct": 80.4799,
+    "s1_entities_with_only_s2": 143029,
+    "s1_entities_with_only_s2_pct": 6.4812,
+    "s1_entities_with_only_s3": 164498,
+    "s1_entities_with_only_s3_pct": 7.4541,
+    "examples_singleton": [
+      "S1-302869473",
+      "S1-262997549",
+      "S1-508022910",
+      "S1-666499407",
+      "S1-965524997"
+    ],
+    "examples_one_match": [
+      {
+        "source1_id": "S1-116043204",
+        "matched": [
+          "S3-85523430"
+        ]
+      },
+      {
+        "source1_id": "S1-473377609",
+        "matched": [
+          "S3-433876173"
+        ]
+      },
+      {
+        "source1_id": "S1-439203009",
+        "matched": [
+          "S3-967165288"
+        ]
+      },
+      {
+        "source1_id": "S1-973290215",
+        "matched": [
+          "S3-925530888"
+        ]
+      },
+      {
+        "source1_id": "S1-649259801",
+        "matched": [
+          "S2-654066445"
+        ]
+      }
+    ],
+    "examples_multi_match": [
+      {
+        "source1_id": "S1-965667",
+        "matched": [
+          "S2-681193310",
+          "S2-743505751",
+          "S3-775321672",
+          "S3-11291185",
+          "S3-860443364"
+        ]
+      },
+      {
+        "source1_id": "S1-55344266",
+        "matched": [
+          "S2-249013014",
+          "S2-197070651",
+          "S3-478195123",
+          "S3-384364074"
+        ]
+      },
+      {
+        "source1_id": "S1-343815751",
+        "matched": [
+          "S2-790675320",
+          "S2-479876582",
+          "S3-878454467"
+        ]
+      },
+      {
+        "source1_id": "S1-656753428",
+        "matched": [
+          "S2-153058913",
+          "S2-24659151",
+          "S3-679606215"
+        ]
+      },
+      {
+        "source1_id": "S1-102811957",
+        "matched": [
+          "S2-478959098",
+          "S2-553508714",
+          "S2-625774905",
+          "S3-728090388",
+          "S3-928796641",
+          "S3-449308785"
+        ]
+      }
+    ],
+    "examples_both_s2_s3": [
+      {
+        "source1_id": "S1-965667",
+        "matched": [
+          "S2-681193310",
+          "S2-743505751",
+          "S3-775321672",
+          "S3-11291185",
+          "S3-860443364"
+        ]
+      },
+      {
+        "source1_id": "S1-55344266",
+        "matched": [
+          "S2-249013014",
+          "S2-197070651",
+          "S3-478195123",
+          "S3-384364074"
+        ]
+      },
+      {
+        "source1_id": "S1-343815751",
+        "matched": [
+          "S2-790675320",
+          "S2-479876582",
+          "S3-878454467"
+        ]
+      },
+      {
+        "source1_id": "S1-656753428",
+        "matched": [
+          "S2-153058913",
+          "S2-24659151",
+          "S3-679606215"
+        ]
+      },
+      {
+        "source1_id": "S1-102811957",
+        "matched": [
+          "S2-478959098",
+          "S2-553508714",
+          "S2-625774905",
+          "S3-728090388",
+          "S3-928796641",
+          "S3-449308785"
+        ]
+      }
+    ]
+  },
+  "names_profile": {
+    "train_source1": {
+      "source": "train_source1",
+      "total_rows": 2206821,
+      "unique_raw_names": 1539229,
+      "duplicate_raw_names_count": 177793,
+      "rows_with_duplicate_raw_name": 845385,
+      "pct_rows_with_duplicate_raw_name": 38.308,
+      "top_10_frequent_raw_names": [
+        {
+          "name": "Primary Care Group",
+          "count": 253
+        },
+        {
+          "name": "Ear Nose & Throat Group",
+          "count": 251
+        },
+        {
+          "name": "Pediatric Group",
+          "count": 222
+        },
+        {
+          "name": "Womens Health Group",
+          "count": 220
+        },
+        {
+          "name": "Physical Therapy Group",
+          "count": 218
+        },
+        {
+          "name": "Pediatric Dental Group",
+          "count": 216
+        },
+        {
+          "name": "Behavioral Health Group",
+          "count": 215
+        },
+        {
+          "name": "Chiropractic Group",
+          "count": 209
+        },
+        {
+          "name": "Orthopedic Group",
+          "count": 208
+        },
+        {
+          "name": "Eye Group",
+          "count": 207
+        }
+      ],
+      "unique_normalized_names": 1522166,
+      "duplicate_normalized_names_count": 180374,
+      "rows_with_duplicate_norm_name": 865029,
+      "pct_rows_with_duplicate_norm_name": 39.198,
+      "top_10_duplicated_normalized_names": [
+        {
+          "name": "primary care group",
+          "count": 253
+        },
+        {
+          "name": "ear nose and throat group",
+          "count": 251
+        },
+        {
+          "name": "pediatric group",
+          "count": 222
+        },
+        {
+          "name": "womens health group",
+          "count": 220
+        },
+        {
+          "name": "physical therapy group",
+          "count": 218
+        },
+        {
+          "name": "pediatric dental group",
+          "count": 216
+        },
+        {
+          "name": "behavioral health group",
+          "count": 215
+        },
+        {
+          "name": "chiropractic group",
+          "count": 209
+        },
+        {
+          "name": "orthopedic group",
+          "count": 208
+        },
+        {
+          "name": "eye group",
+          "count": 207
+        }
+      ],
+      "unique_legal_stripped_names": 1349440,
+      "normalized_group_size_distribution": {
+        "size_1": 1341792,
+        "size_2_to_5": 154820,
+        "size_50_plus": 1383,
+        "size_6_to_10": 14879,
+        "size_11_to_50": 9292
+      },
+      "sample_mappings": [
+        {
+          "raw": "Orelee's Barbershop",
+          "normalized": "orelee s barbershop",
+          "legal_stripped": "orelee s barbershop"
+        },
+        {
+          "raw": "Prime Money",
+          "normalized": "prime money",
+          "legal_stripped": "prime money"
+        },
+        {
+          "raw": "B+ Retail Inc",
+          "normalized": "b retail inc",
+          "legal_stripped": "b retail"
+        },
+        {
+          "raw": "Christ Chapel",
+          "normalized": "christ chapel",
+          "legal_stripped": "christ chapel"
+        },
+        {
+          "raw": "Prabhav Business Center",
+          "normalized": "prabhav business center",
+          "legal_stripped": "prabhav business center"
+        }
+      ],
+      "collapsing_examples": []
+    },
+    "train_source2": {
+      "source": "train_source2",
+      "total_rows": 5034616,
+      "unique_raw_names": 4402009,
+      "duplicate_raw_names_count": 239779,
+      "rows_with_duplicate_raw_name": 872386,
+      "pct_rows_with_duplicate_raw_name": 17.328,
+      "top_10_frequent_raw_names": [
+        {
+          "name": "Primary Care",
+          "count": 320
+        },
+        {
+          "name": "Physical Therapy",
+          "count": 307
+        },
+        {
+          "name": "Urgent Care",
+          "count": 297
+        },
+        {
+          "name": "Womens Health",
+          "count": 297
+        },
+        {
+          "name": "Behavioral Health",
+          "count": 296
+        },
+        {
+          "name": "Internal Medicine",
+          "count": 288
+        },
+        {
+          "name": "Pediatric Dentistry",
+          "count": 274
+        },
+        {
+          "name": "earnosethroat.com",
+          "count": 269
+        },
+        {
+          "name": "Pediatric Dental",
+          "count": 268
+        },
+        {
+          "name": "Ear Nose & Throat",
+          "count": 220
+        }
+      ],
+      "unique_normalized_names": 3751587,
+      "duplicate_normalized_names_count": 362197,
+      "rows_with_duplicate_norm_name": 1645226,
+      "pct_rows_with_duplicate_norm_name": 32.678,
+      "top_10_duplicated_normalized_names": [
+        {
+          "name": "",
+          "count": 455759
+        },
+        {
+          "name": "private limited",
+          "count": 1672
+        },
+        {
+          "name": "primary care",
+          "count": 539
+        },
+        {
+          "name": "physical therapy",
+          "count": 538
+        },
+        {
+          "name": "womens health",
+          "count": 498
+        },
+        {
+          "name": "pediatric dental",
+          "count": 486
+        },
+        {
+          "name": "urgent care",
+          "count": 482
+        },
+        {
+          "name": "behavioral health",
+          "count": 481
+        },
+        {
+          "name": "internal medicine",
+          "count": 480
+        },
+        {
+          "name": "pediatric dentistry",
+          "count": 465
+        }
+      ],
+      "unique_legal_stripped_names": 3254470,
+      "normalized_group_size_distribution": {
+        "size_50_plus": 908,
+        "size_1": 3389390,
+        "size_2_to_5": 335609,
+        "size_11_to_50": 9120,
+        "size_6_to_10": 16560
+      },
+      "sample_mappings": [
+        {
+          "raw": "\u0930\u093e\u092e \u092e\u093e\u0930\u094d\u0915\u0947\u091f\u093f\u0902\u0917 \u092a\u094d\u0930\u093e\u0907\u0935\u0947\u091f \u0932\u093f\u092e\u093f\u091f\u0947\u0921",
+          "normalized": "",
+          "legal_stripped": ""
+        },
+        {
+          "raw": "-- Holloway Peak Inc Seafood",
+          "normalized": "holloway peak inc seafood",
+          "legal_stripped": "holloway peak inc seafood"
+        },
+        {
+          "raw": "\u0906\u0926\u093f\u0924\u094d\u092f \u092a\u094d\u0930\u0949\u092a\u0930\u094d\u091f\u0940\u091c \u090f\u0932\u090f\u0932\u092a\u0940",
+          "normalized": "",
+          "legal_stripped": ""
+        },
+        {
+          "raw": "Summit Inc",
+          "normalized": "summit inc",
+          "legal_stripped": "summit"
+        },
+        {
+          "raw": "Delta Tetlecommunication Inc",
+          "normalized": "delta tetlecommunication inc",
+          "legal_stripped": "delta tetlecommunication"
+        }
+      ],
+      "collapsing_examples": [
+        {
+          "normalized": "",
+          "raw_variants": [
+            "\u0930\u093f\u092f\u0932 \u092e\u0949\u0921\u0930\u094d\u0928 \u092b\u0942\u0921 \u0932\u093f\u092e\u093f\u091f\u0947\u0921",
+            "\u0906\u0926\u093f\u0924\u094d\u092f \u092a\u094d\u0930\u0949\u092a\u0930\u094d\u091f\u0940\u091c \u090f\u0932\u090f\u0932\u092a\u0940",
+            "\u0930\u093e\u092e \u092e\u093e\u0930\u094d\u0915\u0947\u091f\u093f\u0902\u0917 \u092a\u094d\u0930\u093e\u0907\u0935\u0947\u091f \u0932\u093f\u092e\u093f\u091f\u0947\u0921",
+            "\u0938\u0928 \u0915\u0902\u0938\u094d\u091f\u094d\u0930\u0915\u094d\u0936\u0902\u0938 \u092a\u094d\u0930\u093e\u0907\u0935\u0947\u091f \u0932\u093f\u092e\u093f\u091f\u0947\u0921",
+            "\u0b95\u0bc1\u0bb3\u0bcb\u0baa\u0bb2\u0bcd \u0baa\u0bbf\u0b9a\u0bbf\u0ba9\u0bb8\u0bcd \u0baa\u0bbf\u0bb0\u0bc8\u0bb5\u0bc7\u0b9f\u0bcd \u0bb2\u0bbf\u0bae\u0bbf\u0b9f\u0bc6\u0b9f\u0bcd"
+          ]
+        }
+      ]
+    },
+    "train_source3": {
+      "source": "train_source3",
+      "total_rows": 5285603,
+      "unique_raw_names": 4651609,
+      "duplicate_raw_names_count": 258276,
+      "rows_with_duplicate_raw_name": 892270,
+      "pct_rows_with_duplicate_raw_name": 16.881,
+      "top_10_frequent_raw_names": [
+        {
+          "name": "Primary Care",
+          "count": 421
+        },
+        {
+          "name": "Physical Therapy",
+          "count": 399
+        },
+        {
+          "name": "Pediatric Dental",
+          "count": 393
+        },
+        {
+          "name": "Womens Health",
+          "count": 379
+        },
+        {
+          "name": "Urgent Care",
+          "count": 377
+        },
+        {
+          "name": "Pediatric Dentistry",
+          "count": 361
+        },
+        {
+          "name": "Behavioral Health",
+          "count": 330
+        },
+        {
+          "name": "Pediatric",
+          "count": 321
+        },
+        {
+          "name": "Internal Medicine",
+          "count": 319
+        },
+        {
+          "name": "The Dent",
+          "count": 254
+        }
+      ],
+      "unique_normalized_names": 4048680,
+      "duplicate_normalized_names_count": 393931,
+      "rows_with_duplicate_norm_name": 1630854,
+      "pct_rows_with_duplicate_norm_name": 30.855,
+      "top_10_duplicated_normalized_names": [
+        {
+          "name": "",
+          "count": 243630
+        },
+        {
+          "name": "private limited",
+          "count": 2957
+        },
+        {
+          "name": "pvt ltd",
+          "count": 694
+        },
+        {
+          "name": "limited",
+          "count": 581
+        },
+        {
+          "name": "physical therapy",
+          "count": 533
+        },
+        {
+          "name": "primary care",
+          "count": 531
+        },
+        {
+          "name": "pediatric dental",
+          "count": 518
+        },
+        {
+          "name": "urgent care",
+          "count": 495
+        },
+        {
+          "name": "pediatric dentistry",
+          "count": 482
+        },
+        {
+          "name": "womens health",
+          "count": 480
+        }
+      ],
+      "unique_legal_stripped_names": 3551124,
+      "normalized_group_size_distribution": {
+        "size_1": 3654749,
+        "size_2_to_5": 358351,
+        "size_6_to_10": 22167,
+        "size_50_plus": 1201,
+        "size_11_to_50": 12212
+      },
+      "sample_mappings": [
+        {
+          "raw": "wilfordhancock.com",
+          "normalized": "wilfordhancock com",
+          "legal_stripped": "wilfordhancock com"
+        },
+        {
+          "raw": "International South Consultants Private Ltd",
+          "normalized": "international south consultants private ltd",
+          "legal_stripped": "international south consultants"
+        },
+        {
+          "raw": "LLC Moncada L\u00e9arning Center",
+          "normalized": "llc moncada learning center",
+          "legal_stripped": "llc moncada learning center"
+        },
+        {
+          "raw": "Moyna's Coffee",
+          "normalized": "moyna s coffee",
+          "legal_stripped": "moyna s coffee"
+        },
+        {
+          "raw": "Pvt. EFS Print Ventures Ltd.",
+          "normalized": "pvt efs print ventures ltd",
+          "legal_stripped": "pvt efs print ventures"
+        }
+      ],
+      "collapsing_examples": [
+        {
+          "normalized": "",
+          "raw_variants": [
+            "\u092c\u0947\u0938\u094d\u091f \u092e\u093e\u0901 \u0907\u0902\u091f\u0930\u0928\u0947\u0936\u0928\u0932 \u092a\u094d\u0930\u093e\u0907\u0935\u0947\u091f \u0932\u093f\u092e\u093f\u091f\u0947\u0921",
+            "\u0938\u0928\u0930\u093e\u0907\u091c \u092b\u0942\u0921\u094d\u0938 \u092a\u094d\u0930\u093e\u0907\u0935\u0947\u091f \u0932\u093f\u092e\u093f\u091f\u0947\u0921",
+            "\u0d38\u0d3f\u0d7d\u0d35\u0d7c \u0d15\u0d7a\u0d38\u0d7e\u0d1f\u0d4d\u0d1f\u0d7b\u0d38\u0d3f \u0d2a\u0d4d\u0d30\u0d48\u0d35\u0d31\u0d4d\u0d31\u0d4d \u0d32\u0d3f\u0d2e\u0d3f\u0d31\u0d4d\u0d31\u0d21\u0d4d",
+            "\u0917\u094d\u0930\u0947\u091f \u090f\u0915\u094d\u0938\u092a\u094b\u0930\u094d\u091f\u094d\u0938 \u092a\u094d\u0930\u093e\u0907\u0935\u0947\u091f \u0932\u093f\u092e\u093f\u091f\u0947\u0921",
+            "\u092c\u094d\u0932\u0942 \u091f\u0947\u0915\u094d\u0928\u094b\u0932\u0949\u091c\u0940\u091c"
+          ]
+        },
+        {
+          "normalized": "southern",
+          "raw_variants": [
+            "Southern \u0baa\u0bb5\u0bb0\u0bcd",
+            "Southern \u0c87\u0ca8\u0ccd\u0cb5\u0cc6\u0cb8\u0ccd\u0c9f\u0ccd\u200c\u0cae\u0cc6\u0c82\u0c9f\u0ccd \u0cb2\u0cbf\u0cae\u0cbf\u0c9f\u0cc6\u0ca1\u0ccd"
+          ]
+        }
+      ]
+    },
+    "test_source1": {
+      "source": "test_source1",
+      "total_rows": 1732544,
+      "unique_raw_names": 1238867,
+      "duplicate_raw_names_count": 129955,
+      "rows_with_duplicate_raw_name": 623632,
+      "pct_rows_with_duplicate_raw_name": 35.995,
+      "top_10_frequent_raw_names": [
+        {
+          "name": "Bordeaux Club SARL",
+          "count": 205
+        },
+        {
+          "name": "Nantes Club SARL",
+          "count": 157
+        },
+        {
+          "name": "Lille Club SARL",
+          "count": 147
+        },
+        {
+          "name": "Urgent Care Group",
+          "count": 123
+        },
+        {
+          "name": "Lille Club SAS",
+          "count": 122
+        },
+        {
+          "name": "Bordeaux Club SAS",
+          "count": 118
+        },
+        {
+          "name": "Nantes Club SAS",
+          "count": 117
+        },
+        {
+          "name": "Bordeaux Amicale SARL",
+          "count": 116
+        },
+        {
+          "name": "Ear Nose & Throat Group",
+          "count": 112
+        },
+        {
+          "name": "Internal Medicine Group",
+          "count": 111
+        }
+      ],
+      "unique_normalized_names": 1228919,
+      "duplicate_normalized_names_count": 131793,
+      "rows_with_duplicate_norm_name": 635418,
+      "pct_rows_with_duplicate_norm_name": 36.675,
+      "top_10_duplicated_normalized_names": [
+        {
+          "name": "bordeaux club sarl",
+          "count": 205
+        },
+        {
+          "name": "nantes club sarl",
+          "count": 157
+        },
+        {
+          "name": "lille club sarl",
+          "count": 147
+        },
+        {
+          "name": "urgent care group",
+          "count": 123
+        },
+        {
+          "name": "lille club sas",
+          "count": 122
+        },
+        {
+          "name": "bordeaux club sas",
+          "count": 118
+        },
+        {
+          "name": "nantes club sas",
+          "count": 117
+        },
+        {
+          "name": "bordeaux amicale sarl",
+          "count": 116
+        },
+        {
+          "name": "ear nose and throat group",
+          "count": 112
+        },
+        {
+          "name": "internal medicine group",
+          "count": 111
+        }
+      ],
+      "unique_legal_stripped_names": 1097165,
+      "normalized_group_size_distribution": {
+        "size_1": 1097126,
+        "size_2_to_5": 110115,
+        "size_6_to_10": 11561,
+        "size_11_to_50": 9896,
+        "size_50_plus": 221
+      },
+      "sample_mappings": [
+        {
+          "raw": "Zephay Labs Inc",
+          "normalized": "zephay labs inc",
+          "legal_stripped": "zephay labs"
+        },
+        {
+          "raw": "Vision Partners Corp",
+          "normalized": "vision partners corp",
+          "legal_stripped": "vision partners"
+        },
+        {
+          "raw": "<< Team Ecole",
+          "normalized": "team ecole",
+          "legal_stripped": "team ecole"
+        },
+        {
+          "raw": "Red Perfect Trading",
+          "normalized": "red perfect trading",
+          "legal_stripped": "red perfect trading"
+        },
+        {
+          "raw": "ZNB Club SARL",
+          "normalized": "znb club sarl",
+          "legal_stripped": "znb club"
+        }
+      ],
+      "collapsing_examples": []
+    },
+    "test_source2": {
+      "source": "test_source2",
+      "total_rows": 4887273,
+      "unique_raw_names": 4311041,
+      "duplicate_raw_names_count": 223103,
+      "rows_with_duplicate_raw_name": 799335,
+      "pct_rows_with_duplicate_raw_name": 16.355,
+      "top_10_frequent_raw_names": [
+        {
+          "name": "CC",
+          "count": 302
+        },
+        {
+          "name": "PC",
+          "count": 197
+        },
+        {
+          "name": "LC",
+          "count": 194
+        },
+        {
+          "name": "AC",
+          "count": 174
+        },
+        {
+          "name": "SC",
+          "count": 174
+        },
+        {
+          "name": "DC",
+          "count": 159
+        },
+        {
+          "name": "Urgent Care",
+          "count": 156
+        },
+        {
+          "name": "Womens Health",
+          "count": 152
+        },
+        {
+          "name": "BC",
+          "count": 148
+        },
+        {
+          "name": "MC",
+          "count": 147
+        }
+      ],
+      "unique_normalized_names": 3677126,
+      "duplicate_normalized_names_count": 317509,
+      "rows_with_duplicate_norm_name": 1527656,
+      "pct_rows_with_duplicate_norm_name": 31.258,
+      "top_10_duplicated_normalized_names": [
+        {
+          "name": "",
+          "count": 526050
+        },
+        {
+          "name": "private limited",
+          "count": 1581
+        },
+        {
+          "name": "pvt ltd",
+          "count": 390
+        },
+        {
+          "name": "limited",
+          "count": 369
+        },
+        {
+          "name": "cc",
+          "count": 302
+        },
+        {
+          "name": "urgent care",
+          "count": 280
+        },
+        {
+          "name": "womens health",
+          "count": 262
+        },
+        {
+          "name": "primary care",
+          "count": 260
+        },
+        {
+          "name": "behavioral health",
+          "count": 246
+        },
+        {
+          "name": "pediatric dentistry",
+          "count": 244
+        }
+      ],
+      "unique_legal_stripped_names": 3227079,
+      "normalized_group_size_distribution": {
+        "size_1": 3359617,
+        "size_2_to_5": 294082,
+        "size_11_to_50": 7949,
+        "size_50_plus": 495,
+        "size_6_to_10": 14983
+      },
+      "sample_mappings": [
+        {
+          "raw": "Brahma Infosoft",
+          "normalized": "brahma infosoft",
+          "legal_stripped": "brahma infosoft"
+        },
+        {
+          "raw": "Marina Ecole France Sarl",
+          "normalized": "marina ecole france sarl",
+          "legal_stripped": "marina ecole france"
+        },
+        {
+          "raw": "SCI Ptit \u00c0micale",
+          "normalized": "sci ptit amicale",
+          "legal_stripped": "sci ptit amicale"
+        },
+        {
+          "raw": "Apex Summit",
+          "normalized": "apex summit",
+          "legal_stripped": "apex summit"
+        },
+        {
+          "raw": "Fresh Truist",
+          "normalized": "fresh truist",
+          "legal_stripped": "fresh truist"
+        }
+      ],
+      "collapsing_examples": [
+        {
+          "normalized": "",
+          "raw_variants": [
+            "\u0987\u09a8\u09cb\u09ad\u09c7\u099f\u09bf\u09ad \u09aa\u09cd\u09b0\u09cb\u09a1\u09be\u0995\u09cd\u099f\u09b8 \u09b0\u09c7\u09b8\u09cd\u099f\u09c1\u09b0\u09c7\u09a8\u09cd\u099f \u09b2\u09bf\u09ae\u09bf\u099f\u09c7\u09a1",
+            "\u0d05\u0d7d \u0d15\u0d7a\u0d38\u0d4d\u0d1f\u0d4d\u0d30\u0d15\u0d4d\u0d37\u0d7b\u0d38\u0d4d \u0d2b\u0d41\u0d21\u0d4d\u0d38\u0d4d \u0d2a\u0d4d\u0d30\u0d48\u0d35\u0d31\u0d4d\u0d31\u0d4d \u0d32\u0d3f\u0d2e\u0d3f\u0d31\u0d4d\u0d31\u0d21\u0d4d",
+            "\u0a38\u0a15\u0a3e\u0a08 \u0a05\u0a30\u0a3f\u0a39\u0a70\u0a24 \u0a17\u0a32\u0a4b\u0a2c\u0a32 \u0a2a\u0a4d\u0a30\u0a3e. \u0a32\u0a3f.",
+            "\u0906\u0928\u0902\u0926 \u092b\u093e\u0909\u0902\u0921\u0947\u0936\u0928 \u092a\u094d\u0930\u093e\u0907\u0935\u0947\u091f \u0932\u093f\u092e\u093f\u091f\u0947\u0921",
+            "\u0c15\u0c43\u0c37\u0c4d\u0c23\u0c3e \u0c07\u0c02\u0c2a\u0c46\u0c15\u0c4d\u0c38\u0c4d \u0c32\u0c3f\u0c2e\u0c3f\u0c1f\u0c46\u0c21\u0c4d"
+          ]
+        }
+      ]
+    },
+    "test_source3": {
+      "source": "test_source3",
+      "total_rows": 5082316,
+      "unique_raw_names": 4521929,
+      "duplicate_raw_names_count": 238156,
+      "rows_with_duplicate_raw_name": 798543,
+      "pct_rows_with_duplicate_raw_name": 15.712,
+      "top_10_frequent_raw_names": [
+        {
+          "name": "CC",
+          "count": 387
+        },
+        {
+          "name": "SC",
+          "count": 358
+        },
+        {
+          "name": "AC",
+          "count": 297
+        },
+        {
+          "name": "PC",
+          "count": 286
+        },
+        {
+          "name": "LC",
+          "count": 245
+        },
+        {
+          "name": "MC",
+          "count": 243
+        },
+        {
+          "name": "BC",
+          "count": 226
+        },
+        {
+          "name": "CS",
+          "count": 218
+        },
+        {
+          "name": "Internal Medicine",
+          "count": 214
+        },
+        {
+          "name": "DC",
+          "count": 213
+        }
+      ],
+      "unique_normalized_names": 3950221,
+      "duplicate_normalized_names_count": 347867,
+      "rows_with_duplicate_norm_name": 1479962,
+      "pct_rows_with_duplicate_norm_name": 29.12,
+      "top_10_duplicated_normalized_names": [
+        {
+          "name": "",
+          "count": 280779
+        },
+        {
+          "name": "private limited",
+          "count": 3158
+        },
+        {
+          "name": "pvt ltd",
+          "count": 715
+        },
+        {
+          "name": "limited",
+          "count": 641
+        },
+        {
+          "name": "cc",
+          "count": 387
+        },
+        {
+          "name": "llp",
+          "count": 365
+        },
+        {
+          "name": "sc",
+          "count": 358
+        },
+        {
+          "name": "global",
+          "count": 311
+        },
+        {
+          "name": "ac",
+          "count": 297
+        },
+        {
+          "name": "pc",
+          "count": 287
+        }
+      ],
+      "unique_legal_stripped_names": 3488437,
+      "normalized_group_size_distribution": {
+        "size_50_plus": 737,
+        "size_1": 3602354,
+        "size_6_to_10": 19778,
+        "size_2_to_5": 315264,
+        "size_11_to_50": 12088
+      },
+      "sample_mappings": [
+        {
+          "raw": "\u092e\u0949\u0921\u0930\u094d\u0928 \u092b\u093e\u0907\u0928\u0947\u0902\u0938",
+          "normalized": "",
+          "legal_stripped": ""
+        },
+        {
+          "raw": "Shri Sai Infratech Co",
+          "normalized": "shri sai infratech co",
+          "legal_stripped": "shri sai infratech"
+        },
+        {
+          "raw": "Fractales Amis Groupe S.A.S",
+          "normalized": "fractales amis groupe s a s",
+          "legal_stripped": "fractales amis groupe s a s"
+        },
+        {
+          "raw": "Shri Supreme Consulting Private  (Limited)",
+          "normalized": "shri supreme consulting private limited",
+          "legal_stripped": "shri supreme consulting"
+        },
+        {
+          "raw": "Prime Realty Ventures Public Limited",
+          "normalized": "prime realty ventures public limited",
+          "legal_stripped": "prime realty ventures public"
+        }
+      ],
+      "collapsing_examples": [
+        {
+          "normalized": "",
+          "raw_variants": [
+            "\u092e\u0949\u0921\u0930\u094d\u0928 \u092b\u093e\u0907\u0928\u0947\u0902\u0938",
+            "\u0932\u0915\u094d\u0937\u094d\u092e\u0940 \u0907\u0902\u092b\u094b\u091f\u0947\u0915 \u090f\u091c\u0947\u0902\u0938\u0940\u091c \u092a\u094d\u0930\u093e\u0907\u0935\u0947\u091f \u0932\u093f\u092e\u093f\u091f\u0947\u0921",
+            "\u0936\u0915\u094d\u0924\u093f \u0907\u092e\u094d\u092a\u0947\u0915\u094d\u0938 \u092a\u094d\u0930\u093e\u0907\u0935\u0947\u091f \u0932\u093f\u092e\u093f\u091f\u0947\u0921",
+            "\u0ca1\u0cbf\u0c9c\u0cbf\u0c9f\u0cb2\u0ccd \u0cac\u0cbf\u0cb2\u0ccd\u0ca1\u0cb0\u0ccd\u0cb8\u0ccd \u0caa\u0ccd\u0cb0\u0cc8\u0cb5\u0cc7\u0c9f\u0ccd \u0cb2\u0cbf\u0cae\u0cbf\u0c9f\u0cc6\u0ca1\u0ccd",
+            "\u0b88\u0bb8\u0bcd\u0b9f\u0bb0\u0bcd\u0ba9\u0bcd \u0b95\u0ba9\u0bcd\u0b9a\u0bb2\u0bcd\u0b9f\u0ba9\u0bcd\u0b9a\u0bbf \u0baa\u0bbf\u0bb0\u0bc8\u0bb5\u0bc7\u0b9f\u0bcd \u0bb2\u0bbf\u0bae\u0bbf\u0b9f\u0bc6\u0b9f\u0bcd"
+          ]
+        }
+      ]
+    }
+  },
+  "addresses_profile": {
+    "train_source1": {
+      "source": "train_source1",
+      "total_rows": 2206821,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "sample_duplicate_analysis": {
+        "sample_size": 300000,
+        "unique_raw_addresses": 297510,
+        "duplicate_raw_keys": 2186,
+        "unique_normalized_addresses": 297501,
+        "duplicate_normalized_keys": 2195,
+        "estimated_raw_duplicate_pct": 0.73,
+        "estimated_norm_duplicate_pct": 0.74
+      },
+      "by_country": {
+        "US": {
+          "total_rows": 1323633,
+          "missing_count": 0,
+          "missing_pct": 0.0,
+          "valid_address_count": 1323633,
+          "has_postal_code_pct": 10.82,
+          "has_house_number_pct": 99.58,
+          "has_state_or_region_pct": 100.0,
+          "length_percentiles": {
+            "p25": 30,
+            "p50": 34,
+            "p75": 39,
+            "p90": 44,
+            "p95": 48,
+            "p99": 55
+          },
+          "top_separators": {
+            ",": 2855911,
+            "/": 2509
+          },
+          "top_abbreviations": {
+            "street": 273597,
+            "road": 246699,
+            "drive": 220848,
+            "avenue": 181635,
+            "lane": 94566,
+            "court": 57646,
+            "fl": 24121,
+            "boulevard": 21566,
+            "ct": 19505,
+            "apartment": 18473
+          },
+          "sample_addresses": [
+            "1795 Westchester Drive, High Point, NC",
+            "17560 Ellis Road, Tahlequah, OK",
+            "1712 Montebello Avenue, Phoenix, AZ",
+            "2100 Cameron Drive, Unit APARTMENT G, Dundalk, MD",
+            "OH, Columbus, 5559 Orville Avenue"
+          ]
+        },
+        "India": {
+          "total_rows": 883188,
+          "missing_count": 0,
+          "missing_pct": 0.0,
+          "valid_address_count": 883188,
+          "has_postal_code_pct": 0.0,
+          "has_house_number_pct": 88.58,
+          "has_state_or_region_pct": 72.33,
+          "length_percentiles": {
+            "p25": 63,
+            "p50": 76,
+            "p75": 90,
+            "p90": 106,
+            "p95": 116,
+            "p99": 134
+          },
+          "top_separators": {
+            ",": 4115176,
+            "/": 378160,
+            ";": 1032,
+            "|": 5
+          },
+          "top_abbreviations": {
+            "no": 361253,
+            "road": 215082,
+            "floor": 161250,
+            "plot": 87469,
+            "near": 57063,
+            "sector": 49139,
+            "street": 35734,
+            "opp": 30217,
+            "building": 22305,
+            "nr": 19570
+          },
+          "sample_addresses": [
+            "797, Lake Town Block A, Kolkata, Howrah, West Bengal",
+            "2505, Tower 1, Oakwood, Runwal Greens, Mulund Goreagon Link Road, Near Fortis Hospital, Bhandup West, Mumbai, Maharashtra",
+            "H.No.16-11-23/37/A, 2Nd Floor, Flat No.207, Sagar Hotel Building, Opp.Rta Office, Mo, Osarambagh, Hyderabad, Telangana",
+            "303, 3Rd Floor Sakar 5 B/H Natraj Cinema Ashram Road, Ahmedabad, Gujarat",
+            "House No-777 Raghubir Bhawanmadan Pur Khadar Sarita Vihar, Delhi, South Delhi, Delhi"
+          ]
+        }
+      }
+    },
+    "train_source2": {
+      "source": "train_source2",
+      "total_rows": 5034616,
+      "missing_count": 168967,
+      "missing_pct": 3.3561,
+      "sample_duplicate_analysis": {
+        "sample_size": 290014,
+        "unique_raw_addresses": 287613,
+        "duplicate_raw_keys": 2349,
+        "unique_normalized_addresses": 287331,
+        "duplicate_normalized_keys": 2618,
+        "estimated_raw_duplicate_pct": 0.82,
+        "estimated_norm_duplicate_pct": 0.91
+      },
+      "by_country": {
+        "US": {
+          "total_rows": 3016817,
+          "missing_count": 111121,
+          "missing_pct": 3.683,
+          "valid_address_count": 2905696,
+          "has_postal_code_pct": 10.52,
+          "has_house_number_pct": 92.77,
+          "has_state_or_region_pct": 100.0,
+          "length_percentiles": {
+            "p25": 29,
+            "p50": 32,
+            "p75": 36,
+            "p90": 41,
+            "p95": 44,
+            "p99": 49
+          },
+          "top_separators": {
+            ",": 6028194,
+            "/": 92679
+          },
+          "top_abbreviations": {
+            "st": 319453,
+            "rd": 299394,
+            "dr": 272577,
+            "street": 266944,
+            "road": 246415,
+            "ave": 223810,
+            "drive": 214603,
+            "avenue": 177458,
+            "ln": 115138,
+            "ct": 109538
+          },
+          "sample_addresses": [
+            "105 ELM ST, MORGANTON, NC",
+            "GREENSBORO, NC, 19 1/2 STARDUST TRAIL",
+            "914 PIERPONT AVE, CLEVELAND, OH",
+            "1702 Pine Avenue, CITY OF MENOMONIE, WI",
+            "282 SAXONY DRIVE, FTT MITCHELL, KY"
+          ]
+        },
+        "India": {
+          "total_rows": 2017799,
+          "missing_count": 57846,
+          "missing_pct": 2.867,
+          "valid_address_count": 1959953,
+          "has_postal_code_pct": 0.0,
+          "has_house_number_pct": 91.91,
+          "has_state_or_region_pct": 56.98,
+          "length_percentiles": {
+            "p25": 55,
+            "p50": 69,
+            "p75": 84,
+            "p90": 100,
+            "p95": 110,
+            "p99": 128
+          },
+          "top_separators": {
+            ",": 7804820,
+            "/": 908816,
+            ";": 2117,
+            "|": 14
+          },
+          "top_abbreviations": {
+            "no": 916175,
+            "road": 422877,
+            "floor": 319584,
+            "plot": 178178,
+            "near": 111305,
+            "sector": 95961,
+            "street": 70366,
+            "opp": 58976,
+            "building": 44944,
+            "nr": 38064
+          },
+          "sample_addresses": [
+            "KH NO. -570/13, NEW DELHI, WEST DELHI, Delhi",
+            "G-3/571, GULMOHAR COLONY, BHOPAL, Madhya Pradesh",
+            "H.NO 204 C ROAD HOSHIARPUR, PUNJAB, Punjab",
+            "63/2275/7, ALHIND TOWER, FIRST FLOOR, JAFFERKHAN COLONY, KOZHIKODE, Kerala",
+            "HN 753 E-1, BHARAT NAGAR, 104/1/1 ERANDWANE, Maharashtra"
+          ]
+        }
+      }
+    },
+    "train_source3": {
+      "source": "train_source3",
+      "total_rows": 5285603,
+      "missing_count": 175916,
+      "missing_pct": 3.3282,
+      "sample_duplicate_analysis": {
+        "sample_size": 290125,
+        "unique_raw_addresses": 288150,
+        "duplicate_raw_keys": 1915,
+        "unique_normalized_addresses": 288005,
+        "duplicate_normalized_keys": 2049,
+        "estimated_raw_duplicate_pct": 0.66,
+        "estimated_norm_duplicate_pct": 0.71
+      },
+      "by_country": {
+        "US": {
+          "total_rows": 3170056,
+          "missing_count": 110968,
+          "missing_pct": 3.501,
+          "valid_address_count": 3059088,
+          "has_postal_code_pct": 10.54,
+          "has_house_number_pct": 93.79,
+          "has_state_or_region_pct": 5.05,
+          "length_percentiles": {
+            "p25": 35,
+            "p50": 39,
+            "p75": 44,
+            "p90": 50,
+            "p95": 53,
+            "p99": 60
+          },
+          "top_separators": {
+            ",": 6714414,
+            "/": 94251
+          },
+          "top_abbreviations": {
+            "st": 319875,
+            "rd": 300323,
+            "street": 299055,
+            "road": 274773,
+            "dr": 272402,
+            "drive": 240675,
+            "ave": 224012,
+            "avenue": 198936,
+            "ln": 116114,
+            "lane": 103331
+          },
+          "sample_addresses": [
+            "Mack Rd, Haltom City, Texas",
+            "5780 Fawn Ct, Fort Worth, Texas",
+            "1 Ivanhoe Ave, PO Box 6009, Cincinnati, Ohio",
+            "2260- Housecreek Trail, Unit 407, Raleigh, North Carolina",
+            "6885 Catalpa Bluff Ln, PO Box 5799, Dickinson, Texas"
+          ]
+        },
+        "India": {
+          "total_rows": 2115547,
+          "missing_count": 64948,
+          "missing_pct": 3.07,
+          "valid_address_count": 2050599,
+          "has_postal_code_pct": 0.0,
+          "has_house_number_pct": 90.49,
+          "has_state_or_region_pct": 69.94,
+          "length_percentiles": {
+            "p25": 41,
+            "p50": 60,
+            "p75": 78,
+            "p90": 95,
+            "p95": 106,
+            "p99": 126
+          },
+          "top_separators": {
+            ",": 7892497,
+            "/": 894761,
+            ";": 2133,
+            "|": 15
+          },
+          "top_abbreviations": {
+            "no": 911023,
+            "road": 344351,
+            "floor": 264672,
+            "plot": 163794,
+            "near": 89138,
+            "sector": 77077,
+            "street": 58088,
+            "opp": 46646,
+            "building": 38033,
+            "nr": 30159
+          },
+          "sample_addresses": [
+            "Door No 183, 41St Cross, 22Nd Main 9Th Block Jayanagar, Bengaluru Urban, Bangalore, \u0c95\u0cb0\u0ccd\u0ca8\u0cbe\u0c9f\u0c95",
+            "Raebareli, Rae Bareli, Raibareilly, UP, No #51 C/o Shiv Kumar Maurya S/o Ram Ausan Bastepur",
+            "Saranampatti Roadvellakinar Post Coimbatore, Tamilnadu, Coimbatore, TN",
+            "Rajendra Nagar, Andhra Pradesh, 221, 2Nd Floor, 7-90/5, Hn 86 Gandipet Main Rd, K.v.rangareddy",
+            "Plot No.: 3829/3250, Near Metro Pillar No: 234, Kanhaiya Nagar, Tri Nagar, Delhi, New Delhi, \u0926\u093f\u0932\u094d\u0932\u0940"
+          ]
+        }
+      }
+    },
+    "test_source1": {
+      "source": "test_source1",
+      "total_rows": 1732544,
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "sample_duplicate_analysis": {
+        "sample_size": 300000,
+        "unique_raw_addresses": 297344,
+        "duplicate_raw_keys": 2218,
+        "unique_normalized_addresses": 297176,
+        "duplicate_normalized_keys": 2352,
+        "estimated_raw_duplicate_pct": 0.75,
+        "estimated_norm_duplicate_pct": 0.79
+      },
+      "by_country": {
+        "US": {
+          "total_rows": 663106,
+          "missing_count": 0,
+          "missing_pct": 0.0,
+          "valid_address_count": 663106,
+          "has_postal_code_pct": 10.82,
+          "has_house_number_pct": 99.58,
+          "has_state_or_region_pct": 100.0,
+          "length_percentiles": {
+            "p25": 30,
+            "p50": 34,
+            "p75": 39,
+            "p90": 44,
+            "p95": 48,
+            "p99": 55
+          },
+          "top_separators": {
+            ",": 1430691,
+            "/": 1227,
+            ";": 1
+          },
+          "top_abbreviations": {
+            "street": 136825,
+            "road": 124385,
+            "drive": 110761,
+            "avenue": 90437,
+            "lane": 47231,
+            "court": 28764,
+            "fl": 11749,
+            "boulevard": 10754,
+            "ct": 9897,
+            "apartment": 9399
+          },
+          "sample_addresses": [
+            "2621 Cotten Road, Tyler, TX",
+            "IA, Iowa City, 1064 Newton Rd, Unit 11",
+            "1325 Brooklyn Walk, Issaquah, WA",
+            "100 Hartsdale Avenue, Unit Apartment TPE, Greenburgh, NY",
+            "600 SE 2nd St, Pelican Rapids, MN"
+          ]
+        },
+        "India": {
+          "total_rows": 809986,
+          "missing_count": 0,
+          "missing_pct": 0.0,
+          "valid_address_count": 809986,
+          "has_postal_code_pct": 0.0,
+          "has_house_number_pct": 88.56,
+          "has_state_or_region_pct": 72.26,
+          "length_percentiles": {
+            "p25": 63,
+            "p50": 76,
+            "p75": 90,
+            "p90": 106,
+            "p95": 116,
+            "p99": 134
+          },
+          "top_separators": {
+            ",": 3777668,
+            "/": 347403,
+            ";": 871,
+            "|": 6
+          },
+          "top_abbreviations": {
+            "no": 330887,
+            "road": 197864,
+            "floor": 147663,
+            "plot": 79987,
+            "near": 51933,
+            "sector": 45063,
+            "street": 33097,
+            "opp": 27666,
+            "building": 20407,
+            "nr": 18017
+          },
+          "sample_addresses": [
+            "Mirzapur, Ews 12, Uttar Pradesh, Mirzapursadar, Awas Vikas Colony",
+            "D-61 Ifs Apartmentmayur Vihar I, New Delhi, East Delhi, Delhi",
+            "Karauli, Rajasthan, Karauli, Pani Ki Tanki Ke Pas Choubepada",
+            "Bhubaneswar, Sub Plot No.-L6/29, Mahodadhi Bhawan (Next To Iter College) Panchasakha Nagar, Dumuduma, Khordha, Plot No.-780, Orissa",
+            "26, Ram Nagar, Behind M.C Quarters Near Jagadhri Gate, Ambala City, Haryana"
+          ]
+        },
+        "France": {
+          "total_rows": 259452,
+          "missing_count": 0,
+          "missing_pct": 0.0,
+          "valid_address_count": 259452,
+          "has_postal_code_pct": 0.39,
+          "has_house_number_pct": 99.49,
+          "has_state_or_region_pct": 39.42,
+          "length_percentiles": {
+            "p25": 44,
+            "p50": 48,
+            "p75": 54,
+            "p90": 61,
+            "p95": 65,
+            "p99": 78
+          },
+          "top_separators": {
+            ",": 529124,
+            "/": 8
+          },
+          "top_abbreviations": {
+            "rue": 170769,
+            "avenue": 30987,
+            "boulevard": 9310,
+            "route": 4428,
+            "chemin": 3650,
+            "av": 2211,
+            "bd": 1963,
+            "all": 655,
+            "apt": 264,
+            "st": 140
+          },
+          "sample_addresses": [
+            "175 Boulevard du Pr\u00e9sident Franklin Roosevelt, Bordeaux, Nouvelle-Aquitaine",
+            "Nouvelle-Aquitaine, La Teste-de-Buch, 5 bis Rue Pierre Dignac",
+            "20 Rue Parmentier, Dunkerque, Hauts-de-France",
+            "Lille, 329 Avenue de Dunkerque, Hauts-de-France",
+            "30 Rue Lachassaigne, Bordeaux, Nouvelle-Aquitaine"
+          ]
+        }
+      }
+    },
+    "test_source2": {
+      "source": "test_source2",
+      "total_rows": 4887273,
+      "missing_count": 129408,
+      "missing_pct": 2.6479,
+      "sample_duplicate_analysis": {
+        "sample_size": 292044,
+        "unique_raw_addresses": 289586,
+        "duplicate_raw_keys": 2388,
+        "unique_normalized_addresses": 289133,
+        "duplicate_normalized_keys": 2822,
+        "estimated_raw_duplicate_pct": 0.82,
+        "estimated_norm_duplicate_pct": 0.98
+      },
+      "by_country": {
+        "US": {
+          "total_rows": 1871330,
+          "missing_count": 55107,
+          "missing_pct": 2.945,
+          "valid_address_count": 1816223,
+          "has_postal_code_pct": 10.65,
+          "has_house_number_pct": 94.06,
+          "has_state_or_region_pct": 100.0,
+          "length_percentiles": {
+            "p25": 29,
+            "p50": 32,
+            "p75": 36,
+            "p90": 41,
+            "p95": 44,
+            "p99": 49
+          },
+          "top_separators": {
+            ",": 3768246,
+            "/": 58530
+          },
+          "top_abbreviations": {
+            "st": 198267,
+            "rd": 188308,
+            "dr": 170147,
+            "street": 165841,
+            "road": 155024,
+            "ave": 139402,
+            "drive": 134601,
+            "avenue": 110736,
+            "ln": 72047,
+            "ct": 68668
+          },
+          "sample_addresses": [
+            "67 KENTUCKY ST, SALYERSVILLE, KY",
+            "8264 FILLY COURT, ROANOKE COUNTY, VA",
+            "126-B New Line Road, MORRISTOWN, TN",
+            "1200 HWY 1187, CROWLEY, TX",
+            "1462 SIXTH AVENUE, KANKAKEE, IL"
+          ]
+        },
+        "India": {
+          "total_rows": 2312565,
+          "missing_count": 52764,
+          "missing_pct": 2.282,
+          "valid_address_count": 2259801,
+          "has_postal_code_pct": 0.0,
+          "has_house_number_pct": 93.11,
+          "has_state_or_region_pct": 56.94,
+          "length_percentiles": {
+            "p25": 55,
+            "p50": 69,
+            "p75": 84,
+            "p90": 100,
+            "p95": 110,
+            "p99": 128
+          },
+          "top_separators": {
+            ",": 9001824,
+            "/": 1050804,
+            ";": 2361,
+            "|": 8
+          },
+          "top_abbreviations": {
+            "no": 1084306,
+            "road": 488976,
+            "floor": 367533,
+            "plot": 203134,
+            "near": 127504,
+            "sector": 110346,
+            "street": 82109,
+            "opp": 67927,
+            "building": 51080,
+            "nr": 44492
+          },
+          "sample_addresses": [
+            "COIMATORE COLONY, HUNSUR TQMYSORE DIST., Karnataka",
+            "SURAT, OFFICE NO. 03038, TRADE HOUSE, NEAR RUSHABH PETROL PUMP, RING ROAD, Gujarat, SURAT",
+            "G-B3/5, T V INDUSTRIAL ESTATE 248/A, S K AHIRE MARG, WORLI, Maharashtra",
+            "CRYSTAL PLAZA, TOWER NO.1, 2ND FLOOR, 2-B GOTRI MAIN ROAD, VADODARA, \u0a97\u0ac1\u0a9c\u0ab0\u0abe\u0aa4",
+            "H.NO 4/A ASHTAVINAYAK, NAGAR, NAGPUR (URBAN), NAGPUR, \u092e\u0939\u093e\u0930\u093e\u0937\u094d\u091f\u094d\u0930"
+          ]
+        },
+        "France": {
+          "total_rows": 703378,
+          "missing_count": 21537,
+          "missing_pct": 3.062,
+          "valid_address_count": 681841,
+          "has_postal_code_pct": 0.27,
+          "has_house_number_pct": 95.56,
+          "has_state_or_region_pct": 24.31,
+          "length_percentiles": {
+            "p25": 32,
+            "p50": 41,
+            "p75": 48,
+            "p90": 55,
+            "p95": 60,
+            "p99": 70
+          },
+          "top_separators": {
+            ",": 1152565,
+            "/": 20
+          },
+          "top_abbreviations": {
+            "rue": 269195,
+            "avenue": 45928,
+            "no": 35522,
+            "av": 27580,
+            "boulevard": 14029,
+            "all": 12772,
+            "st": 12225,
+            "bd": 11594,
+            "ave": 10792,
+            "route": 6549
+          },
+          "sample_addresses": [
+            "63 R. DE DIEPPE, LILLE, Hauts-de-France",
+            "18 RUE JEN ZAY, Dunkerque, Nord",
+            "NO. 5 ALL\u00c9E DES H\u00caTRES, Pornic, Loire-Atlantique",
+            "77 AV LEON JOUHAUX, LILLE",
+            "24 R DESAIX, TOURCOING, Hauts-de-France"
+          ]
+        }
+      }
+    },
+    "test_source3": {
+      "source": "test_source3",
+      "total_rows": 5082316,
+      "missing_count": 136098,
+      "missing_pct": 2.6779,
+      "sample_duplicate_analysis": {
+        "sample_size": 291985,
+        "unique_raw_addresses": 289788,
+        "duplicate_raw_keys": 2125,
+        "unique_normalized_addresses": 289539,
+        "duplicate_normalized_keys": 2343,
+        "estimated_raw_duplicate_pct": 0.73,
+        "estimated_norm_duplicate_pct": 0.81
+      },
+      "by_country": {
+        "US": {
+          "total_rows": 1945701,
+          "missing_count": 55317,
+          "missing_pct": 2.843,
+          "valid_address_count": 1890384,
+          "has_postal_code_pct": 10.71,
+          "has_house_number_pct": 94.9,
+          "has_state_or_region_pct": 4.11,
+          "length_percentiles": {
+            "p25": 35,
+            "p50": 39,
+            "p75": 45,
+            "p90": 50,
+            "p95": 54,
+            "p99": 60
+          },
+          "top_separators": {
+            ",": 4149755,
+            "/": 59292,
+            ";": 3
+          },
+          "top_abbreviations": {
+            "st": 198889,
+            "rd": 188095,
+            "street": 182563,
+            "dr": 170724,
+            "road": 168430,
+            "drive": 147610,
+            "ave": 139317,
+            "avenue": 120071,
+            "ln": 72166,
+            "lane": 62882
+          },
+          "sample_addresses": [
+            "2132 Thomas Run Road, Bel Air, Maryland",
+            "129 Bridge Street, PMB 9302, Hillsborough, North Carolina",
+            "1514 Westhaven Drive, Raleigh, North Carolina",
+            "3419 Evergreen Ln, Portland, Oregon",
+            "Carpenter Drive, Fairborn, Ohio"
+          ]
+        },
+        "India": {
+          "total_rows": 2405000,
+          "missing_count": 59240,
+          "missing_pct": 2.463,
+          "valid_address_count": 2345760,
+          "has_postal_code_pct": 0.0,
+          "has_house_number_pct": 91.8,
+          "has_state_or_region_pct": 69.85,
+          "length_percentiles": {
+            "p25": 41,
+            "p50": 59,
+            "p75": 78,
+            "p90": 95,
+            "p95": 106,
+            "p99": 126
+          },
+          "top_separators": {
+            ",": 9015619,
+            "/": 1027088,
+            ";": 2344,
+            "|": 5
+          },
+          "top_abbreviations": {
+            "no": 1074302,
+            "road": 392266,
+            "floor": 299908,
+            "plot": 184987,
+            "near": 100004,
+            "sector": 87031,
+            "street": 65735,
+            "opp": 52635,
+            "building": 43101,
+            "nr": 34282
+          },
+          "sample_addresses": [
+            "No 10 Enkay Square, 448A, Udyog Vihar Phase V, Gurugram, Gurgaon, HR",
+            "3/115, East Delhi, DL",
+            "H.no 910 A 3503, Mumbai, \u092e\u0939\u093e\u0930\u093e\u0937\u094d\u091f\u094d\u0930",
+            "G.t. Karnal Road, Industrial Area, New Delhi, null, A-68, \u0926\u093f\u0932\u094d\u0932\u0940",
+            "Plot No.99, Flat No.201, Sri Dhama Apts., Road No.4, Shaikpet, Hyderabad, TG"
+          ]
+        },
+        "France": {
+          "total_rows": 731615,
+          "missing_count": 21541,
+          "missing_pct": 2.944,
+          "valid_address_count": 710074,
+          "has_postal_code_pct": 0.29,
+          "has_house_number_pct": 95.7,
+          "has_state_or_region_pct": 24.95,
+          "length_percentiles": {
+            "p25": 32,
+            "p50": 41,
+            "p75": 49,
+            "p90": 56,
+            "p95": 60,
+            "p99": 70
+          },
+          "top_separators": {
+            ",": 1212391,
+            "/": 12
+          },
+          "top_abbreviations": {
+            "rue": 288408,
+            "avenue": 49582,
+            "no": 35203,
+            "av": 27568,
+            "boulevard": 14936,
+            "all": 13049,
+            "st": 12195,
+            "bd": 11707,
+            "ave": 10822,
+            "route": 6955
+          },
+          "sample_addresses": [
+            "23 Rue Icmre, La Teste-de-buch, Gironde",
+            "13 Rue Jules Andrieu, Dunkerque",
+            "250 R De Lille, Roubaix, Hauts-de-France",
+            "(41) Rue Des Thuyas, L\u00e8ge-cap-ferret, Gironde",
+            "135 Rue Henri Dunant, Calais, Hauts-de-France"
+          ]
+        }
+      }
+    }
+  },
+  "matching_difficulty": {
+    "metrics": {
+      "exact_normalized_match_rate_pct": 25.35,
+      "mean_token_jaccard": 0.6964,
+      "mean_char_bigram_similarity": 0.7776,
+      "mean_length_difference": 3.85
+    },
+    "address_metrics": {
+      "missing_address_in_target_pct": 4.38,
+      "exact_normalized_match_rate_pct": 8.66,
+      "mean_token_jaccard": 0.6394,
+      "mean_char_bigram_similarity": 0.8211,
+      "mean_length_difference": 8.82
+    },
+    "pair_categories": {
+      "identical_normalized_names_pct": 25.35,
+      "similar_non_identical_names_pct": 49.06,
+      "weak_name_strong_address_pct": 11.6,
+      "both_name_and_address_noisy_pct": 1.55
+    }
+  },
+  "blocking_evaluation": {
+    "candidate_recalls": {
+      "3_name_prefix_5_and_country": {
+        "hits": 68513,
+        "total_pairs": 91527,
+        "candidate_recall_pct": 74.856
+      },
+      "4_name_token_overlap_and_country": {
+        "hits": 77842,
+        "total_pairs": 91527,
+        "candidate_recall_pct": 85.048
+      },
+      "10_composite_multi_signal": {
+        "hits": 83331,
+        "total_pairs": 91527,
+        "candidate_recall_pct": 91.045
+      },
+      "8_house_number_and_country": {
+        "hits": 69329,
+        "total_pairs": 91527,
+        "candidate_recall_pct": 75.747
+      },
+      "9_address_tokens_and_country": {
+        "hits": 87497,
+        "total_pairs": 91527,
+        "candidate_recall_pct": 95.597
+      },
+      "6_city_match_and_country": {
+        "hits": 48468,
+        "total_pairs": 91527,
+        "candidate_recall_pct": 52.955
+      },
+      "7_state_and_country": {
+        "hits": 62424,
+        "total_pairs": 91527,
+        "candidate_recall_pct": 68.203
+      },
+      "1_exact_norm_name": {
+        "hits": 23200,
+        "total_pairs": 91527,
+        "candidate_recall_pct": 25.348
+      },
+      "2_norm_name_and_country": {
+        "hits": 23200,
+        "total_pairs": 91527,
+        "candidate_recall_pct": 25.348
+      },
+      "5_zip_code": {
+        "hits": 4364,
+        "total_pairs": 91527,
+        "candidate_recall_pct": 4.768
+      }
+    },
+    "bucket_sizes": {
+      "1_exact_normalized_business_name": {
+        "unique_keys": 399815,
+        "avg_bucket_size": 1.25,
+        "max_bucket_size": 60
+      },
+      "2_normalized_name_plus_country": {
+        "unique_keys": 399929,
+        "avg_bucket_size": 1.25,
+        "max_bucket_size": 60
+      },
+      "3_name_prefix_5_plus_country": {
+        "unique_keys": 72272,
+        "avg_bucket_size": 6.92,
+        "max_bucket_size": 3388
+      },
+      "4_name_tokens_plus_country": {
+        "unique_keys": 67602,
+        "avg_bucket_size": 14.52,
+        "max_bucket_size": 9597
+      },
+      "5_postal_or_zip_code": {
+        "unique_keys": 15496,
+        "avg_bucket_size": 2.13,
+        "max_bucket_size": 23
+      },
+      "6_city_plus_country": {
+        "unique_keys": 51351,
+        "avg_bucket_size": 9.74,
+        "max_bucket_size": 10837
+      },
+      "7_state_plus_country": {
+        "unique_keys": 39848,
+        "avg_bucket_size": 12.55,
+        "max_bucket_size": 36604
+      },
+      "8_house_number_plus_country": {
+        "unique_keys": 30084,
+        "avg_bucket_size": 15.68,
+        "max_bucket_size": 8704
+      },
+      "9_address_tokens_plus_country": {
+        "unique_keys": 69460,
+        "avg_bucket_size": 14.4,
+        "max_bucket_size": 53435
+      },
+      "10_composite_name_token_plus_house_num": {
+        "unique_keys": 403214,
+        "avg_bucket_size": 1.17,
+        "max_bucket_size": 101
+      }
+    }
+  },
+  "ambiguity_analysis": {
+    "analyzed_records": 500000,
+    "same_name_different_address_entities": 14716,
+    "same_name_different_address_pct": 7.36,
+    "same_address_different_business_locations": 1059,
+    "same_address_different_business_pct": 0.53,
+    "very_short_names_count": 130,
+    "very_short_names_pct": 0.03,
+    "very_long_names_count": 496,
+    "very_long_names_pct": 0.1,
+    "ampersand_in_name_pct": 5.05,
+    "has_legal_suffix_pct": 0.0,
+    "has_common_abbreviations_pct": 2.57
+  },
+  "memory_and_performance": {
+    "total_dataset_uncompressed_mb": 2403.85,
+    "train_rows": {
+      "source1": 2206821,
+      "source2": 5034616,
+      "source3": 5285603,
+      "total": 12527040
+    },
+    "test_rows": {
+      "source1": 1732544,
+      "source2": 4887273,
+      "source3": 5082316,
+      "total": 11702133
+    },
+    "grand_total_rows": 24229173,
+    "pandas_full_load_safe": false,
+    "estimated_pandas_ram_gb": "12 to 16 GB for full train+test objects",
+    "recommended_chunk_size": "100,000 to 250,000 rows",
+    "polars_pyarrow_advantage": "5x lower RAM via Arrow StringView/LargeUtf8, 10x faster multithreaded scanning"
+  }
+}

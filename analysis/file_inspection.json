@@ -1,0 +1,126 @@
+{
+  "student_resource\\dataset\\train\\train_source1.tsv": {
+    "filename": "train_source1.tsv",
+    "relative_path": "student_resource/dataset/train/train_source1.tsv",
+    "file_size_bytes": 210069713,
+    "file_size_mb": 200.34,
+    "has_header": true,
+    "delimiter": "\\t",
+    "column_names": [
+      "entity_id",
+      "business_name",
+      "business_address",
+      "country"
+    ],
+    "number_of_columns": 4,
+    "total_lines": 2206822,
+    "data_row_count": 2206821,
+    "encoding": "utf-8"
+  },
+  "student_resource\\dataset\\train\\train_source2.tsv": {
+    "filename": "train_source2.tsv",
+    "relative_path": "student_resource/dataset/train/train_source2.tsv",
+    "file_size_bytes": 489301488,
+    "file_size_mb": 466.63,
+    "has_header": true,
+    "delimiter": "\\t",
+    "column_names": [
+      "entity_id",
+      "business_name",
+      "business_address",
+      "country"
+    ],
+    "number_of_columns": 4,
+    "total_lines": 5034617,
+    "data_row_count": 5034616,
+    "encoding": "utf-8"
+  },
+  "student_resource\\dataset\\train\\train_source3.tsv": {
+    "filename": "train_source3.tsv",
+    "relative_path": "student_resource/dataset/train/train_source3.tsv",
+    "file_size_bytes": 503705637,
+    "file_size_mb": 480.37,
+    "has_header": true,
+    "delimiter": "\\t",
+    "column_names": [
+      "entity_id",
+      "business_name",
+      "business_address",
+      "country"
+    ],
+    "number_of_columns": 4,
+    "total_lines": 5285604,
+    "data_row_count": 5285603,
+    "encoding": "utf-8"
+  },
+  "student_resource\\dataset\\train\\train_ground_truth.tsv": {
+    "filename": "train_ground_truth.tsv",
+    "relative_path": "student_resource/dataset/train/train_ground_truth.tsv",
+    "file_size_bytes": 127015583,
+    "file_size_mb": 121.13,
+    "has_header": true,
+    "delimiter": "\\t",
+    "column_names": [
+      "source1_entity_id",
+      "matched_entity_ids"
+    ],
+    "number_of_columns": 2,
+    "total_lines": 2206822,
+    "data_row_count": 2206821,
+    "encoding": "utf-8"
+  },
+  "student_resource\\dataset\\test\\test_source1.tsv": {
+    "filename": "test_source1.tsv",
+    "relative_path": "student_resource/dataset/test/test_source1.tsv",
+    "file_size_bytes": 175022086,
+    "file_size_mb": 166.91,
+    "has_header": true,
+    "delimiter": "\\t",
+    "column_names": [
+      "entity_id",
+      "business_name",
+      "business_address",
+      "country"
+    ],
+    "number_of_columns": 4,
+    "total_lines": 1732545,
+    "data_row_count": 1732544,
+    "encoding": "utf-8"
+  },
+  "student_resource\\dataset\\test\\test_source2.tsv": {
+    "filename": "test_source2.tsv",
+    "relative_path": "student_resource/dataset/test/test_source2.tsv",
+    "file_size_bytes": 509456422,
+    "file_size_mb": 485.86,
+    "has_header": true,
+    "delimiter": "\\t",
+    "column_names": [
+      "entity_id",
+      "business_name",
+      "business_address",
+      "country"
+    ],
+    "number_of_columns": 4,
+    "total_lines": 4887274,
+    "data_row_count": 4887273,
+    "encoding": "utf-8"
+  },
+  "student_resource\\dataset\\test\\test_source3.tsv": {
+    "filename": "test_source3.tsv",
+    "relative_path": "student_resource/dataset/test/test_source3.tsv",
+    "file_size_bytes": 506002772,
+    "file_size_mb": 482.56,
+    "has_header": true,
+    "delimiter": "\\t",
+    "column_names": [
+      "entity_id",
+      "business_name",
+      "business_address",
+      "country"
+    ],
+    "number_of_columns": 4,
+    "total_lines": 5082317,
+    "data_row_count": 5082316,
+    "encoding": "utf-8"
+  }
+}
