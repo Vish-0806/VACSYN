@@ -208,4 +208,35 @@ Task 1.4 is **complete, tested, and verified**. All requirements met:
 - ✅ Clear error handling for missing entities
 - ✅ S2/S3 lookup working correctly
 
-**Ready for Task 1.5 (if scheduled).**
+---
+
+## 12. Architecture Decision: APPROVED
+
+**Decision Date:** Task 1.4 review completion
+
+**Decision:** Keep feature-assembly implementation in `src/business_entity_resolution/features/pair_features.py`.
+
+**Rationale:**
+- Repository already contained `PairFeatureExtractor` and `build_pair_features()` interfaces in `pair_features.py`
+- Existing package exports (`__init__.py`) depend on these symbols from `pair_features.py`
+- Creating a separate `feature_builder.py` would require refactoring exports and tests
+- Functional correctness is established (129 tests passing)
+
+**Constraints (Do NOT change):**
+- Do NOT create `feature_builder.py`
+- Do NOT move or refactor the working assembly implementation
+- Preserve the existing `PairFeatureExtractor` and `build_pair_features()` APIs
+- Preserve `compute_pair_context_features()` unchanged
+- Preserve the exact 18 model features and 3 identity columns
+
+---
+
+## 13. Production-Scale Validation Note
+
+**Important:** The 129 passing tests establish functional correctness on the tested cases. They do **not** establish production-scale performance. Full-scale memory usage and processing throughput remain unverified and must be addressed in subsequent validation.
+
+---
+
+## 14. Task Status: CLOSED
+
+Task 1.4 is **CLOSED**. No further action required for this task.
