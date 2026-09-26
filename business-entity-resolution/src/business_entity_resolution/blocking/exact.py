@@ -7,14 +7,16 @@ Responsible for:
   * country + name prefix (first 5 characters)
   * country + house/building number
   * country + distinctive address tokens
+  * country + house number + name prefix (composite key)
 - Managing inverted index lookups without Cartesian products.
 - Guarding against bucket explosion by filtering oversized generic buckets.
+- Providing high-level AddressBlocker integrating multiple address paths.
 
 Ownership: Member 1 (Preprocessing & Blocking).
 """
 
 import logging
-from collections import defaultdict
+from collections import Counter, defaultdict
 from typing import Dict, Iterable, List, Optional, Set, Tuple
 
 logger = logging.getLogger(__name__)
@@ -99,6 +101,34 @@ def generate_address_token_keys(address_tokens: Iterable[str], country: str) -> 
         if t:
             keys.append(f"{c}::addr::{t}")
     return keys
+
+
+def generate_house_number_name_prefix_key(
+    house_number: Optional[str],
+    normalized_name: str,
+    country: str,
+    prefix_len: int = 3,
+) -> Optional[str]:
+    """
+    Generate composite house number + name prefix + country blocking key.
+    Produces tight, discriminative buckets with high precision.
+
+    Args:
+        house_number: Extracted house/building number.
+        normalized_name: Cleaned business name.
+        country: Country identifier string.
+        prefix_len: Number of characters of name prefix.
+
+    Returns:
+        Composite blocking key (e.g. 'US::h_pref3::1795::wes'), or None if house number is missing.
+    """
+    if not house_number or not normalized_name or not country:
+        return None
+    c = country.strip().upper()
+    h = house_number.strip().lower()
+    n = normalized_name.strip()
+    pref = n[:prefix_len] if len(n) >= prefix_len else n
+    return f"{c}::h_pref{prefix_len}::{h}::{pref}" if h and pref else None
 
 
 class ExactIndex:
@@ -203,3 +233,141 @@ def block_by_address_tokens(
                     return result
 
     return result
+
+
+def block_by_house_and_name_prefix(
+    house_number: Optional[str],
+    normalized_name: str,
+    country: str,
+    composite_index: ExactIndex,
+    prefix_len: int = 3,
+) -> List[str]:
+    """
+    Retrieve candidate IDs matching both house number and business name prefix.
+    """
+    key = generate_house_number_name_prefix_key(
+        house_number=house_number,
+        normalized_name=normalized_name,
+        country=country,
+        prefix_len=prefix_len,
+    )
+    return composite_index.get(key)
+
+
+class AddressBlocker:
+    """
+    Composite address and house-number candidate blocker.
+
+    Integrates:
+    - Path 1: House Number + Name Prefix (tight, high precision).
+    - Path 2: Distinctive Address Token overlap (catches street and locality matches).
+    - Path 3: Standalone House Number (recovers matches when name is heavily corrupted).
+    """
+
+    def __init__(
+        self,
+        max_token_doc_freq: int = 500,
+        max_candidates_per_entity: int = 50,
+    ) -> None:
+        self.max_candidates_per_entity = max_candidates_per_entity
+        self.house_prefix_index = ExactIndex(max_bucket_size=max_token_doc_freq)
+        self.house_index = ExactIndex(max_bucket_size=max_token_doc_freq)
+        self.addr_token_index = ExactIndex(max_bucket_size=max_token_doc_freq)
+        self.addr_token_freqs: Counter = Counter()
+
+    def add_entity(
+        self,
+        entity_id: str,
+        address: Optional[str],
+        normalized_name: str,
+        country: str,
+        house_number: Optional[str] = None,
+        address_tokens: Optional[Set[str]] = None,
+    ) -> None:
+        """
+        Add an entity to the address blocking indices.
+        """
+        if not entity_id or not country:
+            return
+
+        # Extract components if not already provided
+        if house_number is None and address:
+            from ..preprocessing.address import extract_house_number
+            house_number = extract_house_number(address)
+
+        if address_tokens is None and address:
+            from ..preprocessing.address import tokenize_address
+            address_tokens = tokenize_address(address)
+
+        # 1. House number + name prefix key
+        if house_number and normalized_name:
+            k_hp = generate_house_number_name_prefix_key(
+                house_number, normalized_name, country, prefix_len=3
+            )
+            self.house_prefix_index.add(k_hp, entity_id)
+
+        # 2. Standalone house number key
+        if house_number:
+            k_h = generate_house_number_key(house_number, country)
+            self.house_index.add(k_h, entity_id)
+
+        # 3. Distinctive address tokens
+        if address_tokens:
+            c = country.strip().upper()
+            for tok in address_tokens:
+                k_tok = f"{c}::addr::{tok.lower().strip()}"
+                self.addr_token_index.add(k_tok, entity_id)
+                self.addr_token_freqs[k_tok] += 1
+
+    def query_candidates(
+        self,
+        address: Optional[str],
+        normalized_name: str,
+        country: str,
+        house_number: Optional[str] = None,
+        address_tokens: Optional[Set[str]] = None,
+    ) -> List[str]:
+        """
+        Retrieve candidate IDs across all address blocking paths.
+        Union results, deduplicate, and rank by match confidence.
+        """
+        if not country or (not address and not house_number):
+            return []
+
+        if house_number is None and address:
+            from ..preprocessing.address import extract_house_number
+            house_number = extract_house_number(address)
+
+        if address_tokens is None and address:
+            from ..preprocessing.address import tokenize_address
+            address_tokens = tokenize_address(address)
+
+        candidate_scores: Counter = Counter()
+
+        # Path 1: House number + name prefix (strongest address signal, weight = 3)
+        if house_number and normalized_name:
+            cands_hp = block_by_house_and_name_prefix(
+                house_number, normalized_name, country, self.house_prefix_index, prefix_len=3
+            )
+            for cid in cands_hp:
+                candidate_scores[cid] += 3
+
+        # Path 2: Distinctive address tokens (weight = 2 per shared distinctive token)
+        if address_tokens:
+            keys = generate_address_token_keys(address_tokens, country)
+            # Prioritize rarer address tokens
+            sorted_keys = sorted(keys, key=lambda k: self.addr_token_freqs.get(k, 0))
+            for k in sorted_keys[:5]:
+                for cid in self.addr_token_index.get(k):
+                    candidate_scores[cid] += 2
+
+        # Path 3: Standalone house number (weight = 1)
+        if house_number:
+            cands_h = block_by_house_number(house_number, country, self.house_index)
+            for cid in cands_h:
+                candidate_scores[cid] += 1
+
+        top_candidates = [
+            cid for cid, _ in candidate_scores.most_common(self.max_candidates_per_entity)
+        ]
+        return top_candidates
