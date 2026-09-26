@@ -136,50 +136,50 @@ The pipeline follows a multi-stage funnel architecture designed for linear memor
 
 ```mermaid
 flowchart TD
-    subgraph S_Inputs["Input Layer (TSV)"]
-        S1["Source 1 (Reference S1)"]
-        S2["Source 2 (Candidate Pool)"]
-        S3["Source 3 (Candidate Pool)"]
+    subgraph Inputs ["Input Layer"]
+        S1["Source 1 - Reference S1"]
+        S2["Source 2 - Candidate Pool"]
+        S3["Source 3 - Candidate Pool"]
     end
 
-    subgraph M1_Prep["M1: Preprocessing (COMPLETE)"]
-        NORM_NAME["Name Normalization<br/>• Unicode NFKC<br/>• Indic Mark Preservation<br/>• Legal Suffix Stripping"]
-        NORM_ADDR["Address Normalization<br/>• Street Abbreviation Expansion<br/>• House Number Extraction<br/>• Token Standardization"]
+    subgraph Preprocessing ["M1 Preprocessing - COMPLETE"]
+        NORM_NAME["Name Normalization - Unicode NFKC and Legal Suffixes"]
+        NORM_ADDR["Address Normalization and House Number Extraction"]
     end
 
-    subgraph M1_Block["M1: Candidate Generation / Blocking (COMPLETE & FROZEN)"]
-        CPART["Country Partitioning (Strict Isolation)"]
-        B1["Strategy 1: Exact Normalized Name"]
-        B2["Strategy 2: 5-Char Name Prefix"]
-        B3["Strategy 3: Address Distinctive Tokens"]
-        B4["Strategy 4: House # + Country Composite"]
-        B5["Strategy 5: Rarest-First Name Tokens"]
-        B6["Strategy 6: Sparse TF-IDF Cosine Retrieval"]
-        UNION["Multi-Signal Candidate Union<br/>(Capped at 50 cands/S1)"]
+    subgraph Blocking ["M1 Candidate Generation and Blocking - COMPLETE"]
+        CPART["Country Partitioning - Strict Isolation"]
+        B1["Strategy 1 - Exact Normalized Name"]
+        B2["Strategy 2 - 5-Char Name Prefix"]
+        B3["Strategy 3 - Distinctive Address Tokens"]
+        B4["Strategy 4 - House Number and Country Composite"]
+        B5["Strategy 5 - Rarest-First Name Tokens"]
+        B6["Strategy 6 - Sparse TF-IDF Cosine Retrieval"]
+        UNION["Multi-Signal Candidate Union - Cap 50 per S1"]
     end
 
-    subgraph C1_Contract["Contract 1 Intermediate (COMPLETE)"]
-        CAND_PAIRS["candidate_pairs.tsv<br/>(s1_entity_id, candidate_entity_id, candidate_source)"]
+    subgraph Contract1 ["Contract 1 Intermediate - COMPLETE"]
+        CAND_PAIRS["candidate_pairs.tsv"]
     end
 
-    subgraph M2_Features["M2: Feature Engineering (PENDING)"]
-        FEAT_NAME["Pairwise Name Similarities<br/>(Jaccard, n-gram, edit ratio)"]
-        FEAT_ADDR["Pairwise Address Similarities<br/>(Token overlap, house # match)"]
+    subgraph Features ["M2 Feature Engineering - PENDING"]
+        FEAT_NAME["Pairwise Name Similarities"]
+        FEAT_ADDR["Pairwise Address Similarities"]
         FEAT_MAT["Compiled Pair Feature Matrix"]
     end
 
-    subgraph M2_Model["M2: Model & Thresholding (PENDING)"]
-        LGBM["LightGBM Classifier<br/>(Binary Pair Scoring)"]
-        THRESH["Macro F0.5 Threshold Search<br/>+ Singleton Handling"]
+    subgraph Model ["M2 ML Model and Thresholding - PENDING"]
+        LGBM["LightGBM Pair Classifier"]
+        THRESH["Macro F0.5 Threshold and Singleton Decision"]
     end
 
-    subgraph M4_Pipe["M4: Integration & Output (COMPLETE)"]
-        S1_CHUNK["S1 Chunked Streamer (100k chunks)"]
-        SINGLETON["Singleton Preservation (100% S1)"]
+    subgraph Pipeline ["M4 Pipeline and Output - COMPLETE"]
+        S1_CHUNK["S1 Chunked Streamer - 100k Chunks"]
+        SINGLETON["Singleton Preservation - 100% S1"]
         SUB_FMT["Submission Formatters"]
         OUT_CAND["output/candidate_pairs.tsv"]
         OUT_MATCH["output/matching_results.tsv"]
-        VAL["Official Validator<br/>(validate_submission.py)"]
+        VAL["Official Validator - validate_submission.py"]
     end
 
     S1 --> NORM_NAME
@@ -224,14 +224,6 @@ flowchart TD
     SUB_FMT --> OUT_MATCH
     OUT_CAND --> VAL
     OUT_MATCH --> VAL
-
-    classDef done fill:#1b4332,stroke:#40916c,stroke-width:2px,color:#d8f3dc;
-    classDef pending fill:#3d2b1f,stroke:#d4a373,stroke-width:2px,stroke-dasharray: 5 5,color:#faedcd;
-    classDef data fill:#1e293b,stroke:#64748b,stroke-width:2px,color:#f8fafc;
-
-    class S1,S2,S3,CAND_PAIRS,OUT_CAND,OUT_MATCH data;
-    class NORM_NAME,NORM_ADDR,CPART,B1,B2,B3,B4,B5,B6,UNION,S1_CHUNK,SINGLETON,SUB_FMT,VAL done;
-    class FEAT_NAME,FEAT_ADDR,FEAT_MAT,LGBM,THRESH pending;
 ```
 
 ---
