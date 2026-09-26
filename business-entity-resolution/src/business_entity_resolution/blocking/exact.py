@@ -172,6 +172,10 @@ class ExactIndex:
             return []
         return bucket
 
+    def query(self, key: Optional[str]) -> List[str]:
+        """Alias for get(key)."""
+        return self.get(key)
+
 
 def block_by_exact_name(
     normalized_name: str,
