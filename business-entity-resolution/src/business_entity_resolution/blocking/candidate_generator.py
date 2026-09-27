@@ -82,24 +82,30 @@ class CandidateGenerator:
 
     def __init__(
         self,
-        max_candidates_per_s1: int = 50,
+        max_candidates_per_s1: int = 100,
         enable_tfidf: bool = True,
-        tfidf_top_k: int = 20,
+        tfidf_top_k: int = 40,
         tfidf_min_similarity: float = 0.35,
+        max_bucket_size: int = 100,
+        max_token_doc_freq: int = 2000,
     ) -> None:
         """
         Initialize candidate generator.
 
         Args:
-            max_candidates_per_s1: Maximum candidate budget per Source 1 entity.
+            max_candidates_per_s1: Maximum candidate budget per Source 1 entity (default: 100).
             enable_tfidf: Whether to execute sparse TF-IDF character n-gram retrieval.
-            tfidf_top_k: Top-K candidates retrieved per query in TF-IDF stage.
-            tfidf_min_similarity: Minimum cosine similarity threshold for TF-IDF.
+            tfidf_top_k: Top-K candidates retrieved per query in TF-IDF stage (default: 40).
+            tfidf_min_similarity: Minimum cosine similarity threshold for TF-IDF (default: 0.35).
+            max_bucket_size: Maximum bucket size for exact and prefix blocking (default: 100).
+            max_token_doc_freq: Maximum document frequency for address and name tokens (default: 2000).
         """
         self.max_candidates_per_s1 = max_candidates_per_s1
         self.enable_tfidf = enable_tfidf
         self.tfidf_top_k = tfidf_top_k
         self.tfidf_min_similarity = tfidf_min_similarity
+        self.max_bucket_size = max_bucket_size
+        self.max_token_doc_freq = max_token_doc_freq
 
     def generate(
         self,
@@ -188,7 +194,7 @@ class CandidateGenerator:
         s1_addrs = s1_part["business_address"].tolist()
 
         # 1. Exact and Prefix Name Index
-        exact_index = ExactIndex(max_bucket_size=30)
+        exact_index = ExactIndex(max_bucket_size=self.max_bucket_size)
         for cid, cname in zip(cand_ids, cand_names):
             k_exact = generate_exact_name_key(cname, country)
             if k_exact:
@@ -198,7 +204,7 @@ class CandidateGenerator:
                 exact_index.add(k_pref, cid)
 
         # 2. Address & House Number Blocker
-        addr_blocker = AddressBlocker(max_token_doc_freq=500, max_candidates_per_entity=30)
+        addr_blocker = AddressBlocker(max_token_doc_freq=self.max_token_doc_freq, max_candidates_per_entity=30)
         for cid, cname, caddr in zip(cand_ids, cand_names, cand_addrs):
             addr_blocker.add_entity(
                 entity_id=cid,
@@ -208,7 +214,7 @@ class CandidateGenerator:
             )
 
         # 3. Name Token Blocker (Rarest-first, Generic Exclusions)
-        token_blocker = NameTokenBlocker(max_token_doc_freq=500, max_candidates_per_entity=30)
+        token_blocker = NameTokenBlocker(max_token_doc_freq=self.max_token_doc_freq, max_candidates_per_entity=30)
         for cid, cname in zip(cand_ids, cand_names):
             c_toks = tokenize_business_name(cname)
             token_blocker.add_entity(entity_id=cid, tokens=c_toks, country=country)
@@ -312,7 +318,7 @@ def generate_candidates(
     s2_data: Any,
     s3_data: Any,
     output_path: Optional[Path] = None,
-    max_candidates_per_s1: int = 50,
+    max_candidates_per_s1: int = 100,
 ) -> pd.DataFrame:
     """
     Generate final candidate pairs for ML scoring conforming to Contract 1.
