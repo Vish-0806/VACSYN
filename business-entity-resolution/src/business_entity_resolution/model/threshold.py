@@ -84,14 +84,8 @@ def find_optimal_threshold(
             predictions_dict[s1_id] = unique_preds
 
         # Evaluate using M3 macro F0.5
-        try:
-            metrics = compute_macro_f05(predictions_dict, ground_truth_mapping)
-            score = metrics.get("macro_f05", 0.0)
-        except NotImplementedError:
-            # M3 not implemented yet; compute inline for threshold search to work
-            score = _compute_macro_f05_inline(predictions_dict, ground_truth_mapping)
-        except Exception:
-            score = 0.0
+        metrics = compute_macro_f05(predictions_dict, ground_truth_mapping)
+        score = metrics.get("macro_f05", 0.0)
 
         if score > best_score:
             best_score = score
@@ -183,41 +177,3 @@ def apply_entity_thresholds(
         })
 
     return pd.DataFrame(rows, columns=["source1_entity_id", "matched_entity_ids"])
-
-
-def _compute_macro_f05_inline(
-    predictions: Dict[str, List[str]],
-    ground_truth: Dict[str, List[str]],
-) -> float:
-    """
-    Inline macro F0.5 computation for threshold search when M3 is not implemented.
-    This is NOT a duplicate of M3 metrics - it's a fallback for threshold optimization.
-    """
-    if not ground_truth:
-        return 0.0
-
-    total_f05 = 0.0
-    count = 0
-
-    for s1_id, true_ids_list in ground_truth.items():
-        true_ids = set(true_ids_list)
-        pred_ids = set(predictions.get(s1_id, []))
-
-        # Singleton case
-        if len(true_ids) == 0:
-            f05 = 1.0 if len(pred_ids) == 0 else 0.0
-        elif len(pred_ids) == 0:
-            f05 = 0.0
-        else:
-            tp = len(true_ids & pred_ids)
-            precision = tp / len(pred_ids) if pred_ids else 0.0
-            recall = tp / len(true_ids) if true_ids else 0.0
-            if precision == 0 and recall == 0:
-                f05 = 0.0
-            else:
-                f05 = (1.25 * precision * recall) / (0.25 * precision + recall)
-
-        total_f05 += f05
-        count += 1
-
-    return total_f05 / count if count > 0 else 0.0
