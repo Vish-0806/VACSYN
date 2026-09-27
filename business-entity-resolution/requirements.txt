@@ -5,3 +5,5 @@ scipy
 lightgbm
 rapidfuzz
 jupyter
+s3fs
+psutil
