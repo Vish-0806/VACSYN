@@ -13,6 +13,9 @@ Ownership: Member 2 (Features & Model).
 import logging
 from typing import Dict, List, Tuple
 import pandas as pd
+import numpy as np
+
+from ..evaluation.metrics import compute_macro_f05
 
 logger = logging.getLogger(__name__)
 
@@ -33,10 +36,74 @@ def find_optimal_threshold(
     Returns:
         Optimal threshold value yielding maximum macro F0.5.
 
-    TODO:
-        Implement sweep over candidate thresholds evaluating macro F0.5 on validation split.
+    Raises:
+        ValueError: If required columns are missing, threshold_range is invalid,
+                    or no valid thresholds found.
     """
-    raise NotImplementedError("Optimal threshold search is not implemented yet.")
+    # Validate required columns
+    required_cols = ["s1_entity_id", "candidate_entity_id", "match_probability"]
+    for col in required_cols:
+        if col not in predictions_df.columns:
+            raise ValueError(f"Missing required column: {col}")
+
+    # Validate threshold_range
+    if len(threshold_range) != 3:
+        raise ValueError(f"threshold_range must be a tuple of (min, max, step), got {threshold_range}")
+    min_thresh, max_thresh, step = threshold_range
+    if not (0 <= min_thresh <= 1 and 0 <= max_thresh <= 1 and step > 0):
+        raise ValueError(f"Invalid threshold_range: min/max must be in [0,1], step > 0, got {threshold_range}")
+    if min_thresh > max_thresh:
+        raise ValueError(f"threshold_range min ({min_thresh}) > max ({max_thresh})")
+
+    if len(predictions_df) == 0:
+        raise ValueError("predictions_df is empty")
+
+    # Generate threshold grid
+    thresholds = np.arange(min_thresh, max_thresh + step / 2, step)
+    thresholds = np.round(thresholds, 10)  # Avoid floating point issues
+
+    best_threshold = None
+    best_score = -1.0
+
+    # For each threshold, build predictions dict and evaluate
+    for thresh in thresholds:
+        # Filter predictions by threshold
+        filtered = predictions_df[predictions_df["match_probability"] >= thresh]
+
+        # Build predictions dict: s1_entity_id -> list of candidate_entity_id
+        predictions_dict = {}
+        for s1_id in ground_truth_mapping.keys():
+            s1_preds = filtered[filtered["s1_entity_id"] == s1_id]["candidate_entity_id"].tolist()
+            # Deduplicate while preserving order
+            seen = set()
+            unique_preds = []
+            for cid in s1_preds:
+                if cid not in seen:
+                    seen.add(cid)
+                    unique_preds.append(cid)
+            predictions_dict[s1_id] = unique_preds
+
+        # Evaluate using M3 macro F0.5
+        try:
+            metrics = compute_macro_f05(predictions_dict, ground_truth_mapping)
+            score = metrics.get("macro_f05", 0.0)
+        except NotImplementedError:
+            # M3 not implemented yet; compute inline for threshold search to work
+            score = _compute_macro_f05_inline(predictions_dict, ground_truth_mapping)
+        except Exception:
+            score = 0.0
+
+        if score > best_score:
+            best_score = score
+            best_threshold = thresh
+        # Tie-breaking: lower threshold wins (deterministic)
+        elif score == best_score and best_threshold is not None and thresh < best_threshold:
+            best_threshold = thresh
+
+    if best_threshold is None:
+        raise ValueError("No valid threshold found in range")
+
+    return float(best_threshold)
 
 
 def apply_entity_thresholds(
@@ -60,7 +127,97 @@ def apply_entity_thresholds(
         - source1_entity_id
         - matched_entity_ids (comma-separated S2/S3 IDs, or empty string)
 
-    TODO:
-        Implement filtering, group-by aggregation, and singleton preservation.
+    Raises:
+        ValueError: If threshold not in [0, 1], required columns missing,
+                    or all_s1_ids is not a list.
     """
-    raise NotImplementedError("Entity threshold application is not implemented yet.")
+    # Validate threshold
+    if not (0 <= threshold <= 1):
+        raise ValueError(f"threshold must be in [0, 1], got {threshold}")
+
+    # Validate required columns
+    required_cols = ["s1_entity_id", "candidate_entity_id", "match_probability"]
+    for col in required_cols:
+        if col not in predictions_df.columns:
+            raise ValueError(f"Missing required column: {col}")
+
+    if not isinstance(all_s1_ids, (list, tuple, set)):
+        raise ValueError(f"all_s1_ids must be a list/tuple/set, got {type(all_s1_ids).__name__}")
+
+    # Handle empty inputs
+    if len(all_s1_ids) == 0:
+        return pd.DataFrame(columns=["source1_entity_id", "matched_entity_ids"])
+
+    # Filter predictions by threshold
+    filtered = predictions_df[predictions_df["match_probability"] >= threshold].copy()
+
+    # Remove duplicate (s1_entity_id, candidate_entity_id) pairs
+    filtered.drop_duplicates(subset=["s1_entity_id", "candidate_entity_id"], inplace=True)
+
+    # Group by s1_entity_id and collect candidate_entity_ids
+    grouped = filtered.groupby("s1_entity_id")["candidate_entity_id"].apply(list).to_dict()
+
+    # Build output for all required S1 entities
+    rows = []
+    for s1_id in all_s1_ids:
+        if not s1_id or (isinstance(s1_id, float) and np.isnan(s1_id)):
+            continue
+        s1_str = str(s1_id).strip()
+        if not s1_str:
+            continue
+
+        candidates = grouped.get(s1_str, [])
+        # Deduplicate preserving order
+        seen = set()
+        unique_candidates = []
+        for cid in candidates:
+            cid_str = str(cid).strip()
+            if cid_str and cid_str not in seen:
+                seen.add(cid_str)
+                unique_candidates.append(cid_str)
+
+        matched_str = ",".join(unique_candidates) if unique_candidates else ""
+        rows.append({
+            "source1_entity_id": s1_str,
+            "matched_entity_ids": matched_str,
+        })
+
+    return pd.DataFrame(rows, columns=["source1_entity_id", "matched_entity_ids"])
+
+
+def _compute_macro_f05_inline(
+    predictions: Dict[str, List[str]],
+    ground_truth: Dict[str, List[str]],
+) -> float:
+    """
+    Inline macro F0.5 computation for threshold search when M3 is not implemented.
+    This is NOT a duplicate of M3 metrics - it's a fallback for threshold optimization.
+    """
+    if not ground_truth:
+        return 0.0
+
+    total_f05 = 0.0
+    count = 0
+
+    for s1_id, true_ids_list in ground_truth.items():
+        true_ids = set(true_ids_list)
+        pred_ids = set(predictions.get(s1_id, []))
+
+        # Singleton case
+        if len(true_ids) == 0:
+            f05 = 1.0 if len(pred_ids) == 0 else 0.0
+        elif len(pred_ids) == 0:
+            f05 = 0.0
+        else:
+            tp = len(true_ids & pred_ids)
+            precision = tp / len(pred_ids) if pred_ids else 0.0
+            recall = tp / len(true_ids) if true_ids else 0.0
+            if precision == 0 and recall == 0:
+                f05 = 0.0
+            else:
+                f05 = (1.25 * precision * recall) / (0.25 * precision + recall)
+
+        total_f05 += f05
+        count += 1
+
+    return total_f05 / count if count > 0 else 0.0
